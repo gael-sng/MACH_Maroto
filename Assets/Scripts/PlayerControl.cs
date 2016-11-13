@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerControl : MonoBehaviour {
+public class PlayerControl : ShipScript {
 
-    [Header("Max move speed")]
-    public float speed;
     [Header("Max vertical position between 0(bot) and 1(top)")]
     public float maxVerticalPosition;
 
-    private SpriteRenderer sprite;
+    public SpriteRenderer sprite;
     private Camera mainCamera;
     // Use this for initialization
     void Awake () {
@@ -55,12 +53,21 @@ public class PlayerControl : MonoBehaviour {
         return (2*maxVerticalPosition-1) * mainCamera.orthographicSize;
     }
 
-
-
-    void OnCollisionEnter(Collision col) {
-        print("Coll");
+    void OnTriggerEnter2D(Collider2D col) {
+        if (col.gameObject.tag == "EnemyBullet") {
+            TakeDamage(col.gameObject.GetComponent<bulletScript>().GetDamage());
+            col.gameObject.SendMessage("Destroy");
+        } else if (col.gameObject.tag == "Enemy") {
+            TakeDamage(hitPoints);
+        }else if (col.gameObject.tag == "UP") {
+            GetComponent<Shooting>().UpgradeBullet();
+            Destroy(col.gameObject);
+        }
     }
-    void OnTriggerEnter(Collider col) {
-        print("TRIGGER");
+
+    public override void DestroyShip() {
+        //Before destroing, I should add a piece of code to kill player
+
+        base.DestroyShip(); //Do the DestroyShip stuff
     }
 }
