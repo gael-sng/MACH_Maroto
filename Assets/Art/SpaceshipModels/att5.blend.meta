@@ -1,0 +1,195 @@
+fileFormatVersion: 2
+guid: 7fc7b8bddd8f54a409a2750dcd418796
+timeCreated: 1479312194
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Circle
+    100004: Circle_001
+    100006: Circle_002
+    100008: Circle_003
+    100010: Circle_007
+    100012: Domes
+    100014: Domes_001
+    100016: empty_domes
+    100018: empty_domes_001
+    100020: empty_engines
+    100022: empty_engines_001
+    100024: empty_hull
+    100026: empty_hull_001
+    100028: empty_lights
+    100030: empty_lights_001
+    100032: empty_mirror
+    100034: empty_mirror_001
+    100036: Lights
+    100038: Lights_001
+    100040: Sphere_000
+    100042: Sphere_001
+    100044: Sphere_003
+    100046: Sphere_005
+    100048: Sphere_007
+    400000: //RootNode
+    400002: Circle
+    400004: Circle_001
+    400006: Circle_002
+    400008: Circle_003
+    400010: Circle_007
+    400012: Domes
+    400014: Domes_001
+    400016: empty_domes
+    400018: empty_domes_001
+    400020: empty_engines
+    400022: empty_engines_001
+    400024: empty_hull
+    400026: empty_hull_001
+    400028: empty_lights
+    400030: empty_lights_001
+    400032: empty_mirror
+    400034: empty_mirror_001
+    400036: Lights
+    400038: Lights_001
+    400040: Sphere_000
+    400042: Sphere_001
+    400044: Sphere_003
+    400046: Sphere_005
+    400048: Sphere_007
+    2300000: Circle
+    2300002: Circle_001
+    2300004: Circle_002
+    2300006: Circle_003
+    2300008: Circle_007
+    2300010: Domes
+    2300012: Domes_001
+    2300014: empty_domes
+    2300016: empty_domes_001
+    2300018: empty_engines
+    2300020: empty_engines_001
+    2300022: empty_hull
+    2300024: empty_hull_001
+    2300026: empty_lights
+    2300028: empty_lights_001
+    2300030: empty_mirror
+    2300032: empty_mirror_001
+    2300034: Lights
+    2300036: Lights_001
+    2300038: Sphere_000
+    2300040: Sphere_001
+    2300042: Sphere_003
+    2300044: Sphere_005
+    2300046: Sphere_007
+    3300000: Circle
+    3300002: Circle_001
+    3300004: Circle_002
+    3300006: Circle_003
+    3300008: Circle_007
+    3300010: Domes
+    3300012: Domes_001
+    3300014: empty_domes
+    3300016: empty_domes_001
+    3300018: empty_engines
+    3300020: empty_engines_001
+    3300022: empty_hull
+    3300024: empty_hull_001
+    3300026: empty_lights
+    3300028: empty_lights_001
+    3300030: empty_mirror
+    3300032: empty_mirror_001
+    3300034: Lights
+    3300036: Lights_001
+    3300038: Sphere_000
+    3300040: Sphere_001
+    3300042: Sphere_003
+    3300044: Sphere_005
+    3300046: Sphere_007
+    4300000: empty_lights_001
+    4300002: empty_domes_001
+    4300004: empty_hull_001
+    4300006: empty_engines_001
+    4300008: empty_mirror_001
+    4300010: Domes_001
+    4300012: Sphere_007
+    4300014: Circle_007
+    4300016: Circle_003
+    4300018: Circle_002
+    4300020: empty_mirror
+    4300022: Lights_001
+    4300024: empty_engines
+    4300026: Circle
+    4300028: Sphere_003
+    4300030: Sphere_000
+    4300032: empty_hull
+    4300034: Circle_001
+    4300036: Sphere_001
+    4300038: Sphere_005
+    4300040: empty_domes
+    4300042: Domes
+    4300044: empty_lights
+    4300046: Lights
+    7400000: Default Take
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
