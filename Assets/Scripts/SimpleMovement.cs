@@ -6,9 +6,11 @@ public class SimpleMovement : MonoBehaviour {
     public float speed;
     public float maxVerticalPosition;
     private Camera mainCamera;
+    private Animator animator;
     // Use this for initialization
     void Awake () {
         mainCamera = Camera.main;
+        animator = GetComponent<Animator>();
     }
 	
 	// Update is called once per frame
@@ -16,8 +18,18 @@ public class SimpleMovement : MonoBehaviour {
         Vector2 dir;//dir.x between 0 and 1. Same for dir.y
         dir = getInput();
 
+
+        if (dir.x > 0)
+            animator.SetInteger("lean", 1);
+        else
+            if (dir.x < 0)
+            animator.SetInteger("lean", -1);
+        else
+            animator.SetInteger("lean", 0);
+
         if (!dir.Equals(Vector2.zero))
             movePlayer(dir);
+
     }
 
     private Vector2 getInput()
