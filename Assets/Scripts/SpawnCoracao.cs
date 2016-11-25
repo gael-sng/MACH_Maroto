@@ -6,7 +6,7 @@ public class SpawnCoracao : MonoBehaviour {
     private int Lifes = 10;
     public GameObject Heart;
     private GameObject[] lifes = new GameObject[10];
-    private Vector3 position = new Vector3(-10, 4, 0);
+    private Vector3 position = new Vector3(-21, 8, 0);
     private Vector3 aux = new Vector3(1, 0, 0);
 
     // Use this for initialization
