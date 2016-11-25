@@ -9,6 +9,9 @@ public class ShipScript : MonoBehaviour {
     [Header("Max move speed")]
     public float speed;
 
+    [Header("Ship sprite")]
+    public SpriteRenderer sprite;
+
     protected void TakeDamage(float damage) {
 
         hitPoints -= damage;
