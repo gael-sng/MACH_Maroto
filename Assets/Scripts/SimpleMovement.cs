@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//JUST FOR TESTING PURPOSES
+
 public class SimpleMovement : MonoBehaviour {
 
     public float speed;
     public float maxVerticalPosition;
     private Camera mainCamera;
     private Animator animator;
+    public GameObject playerExplosion;
     // Use this for initialization
     void Awake () {
         mainCamera = Camera.main;
@@ -16,9 +19,13 @@ public class SimpleMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector2 dir;//dir.x between 0 and 1. Same for dir.y
+       
+
         dir = getInput();
 
-
+        if (dir.y < 0)
+            Explode();
+       
         if (dir.x > 0)
             animator.SetInteger("lean", 1);
         else
@@ -60,6 +67,13 @@ public class SimpleMovement : MonoBehaviour {
     public float GetMaxVerticalPosition()
     {
         return  mainCamera.orthographicSize;
+    }
+
+
+    void Explode()
+    {
+        Instantiate(playerExplosion, this.transform.position, this.transform.rotation);
+        Destroy(gameObject);
     }
 
 
