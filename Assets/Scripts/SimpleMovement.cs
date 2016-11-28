@@ -24,7 +24,7 @@ public class SimpleMovement : MonoBehaviour {
         dir = getInput();
 
         if (dir.y < 0)
-            Explode();
+            //Explode();
        
         if (dir.x > 0)
             animator.SetInteger("lean", 1);
@@ -75,6 +75,10 @@ public class SimpleMovement : MonoBehaviour {
         Instantiate(playerExplosion, this.transform.position, this.transform.rotation);
         Destroy(gameObject);
     }
-
-
+	void OnTriggerEnter (Collider col) {
+		if (col.gameObject.tag == "EnemyBullet") {
+			col.gameObject.SendMessage ("Destroy");
+			Explode ();
+		}
+	}
 }

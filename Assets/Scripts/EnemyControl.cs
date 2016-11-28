@@ -3,44 +3,87 @@ using System.Collections;
 
 public class EnemyControl: ShipScript {
 
-    [Header("Chance of dropping an Upgrade (Between 0 and 1)")]
+	private float timer;
+	public float movementDelay;
+	private int dir;
+
+	public Transform player;
+	public float verticalSpeed; 
+	public float horizontalSpeed;
+	private Transform enemy;
+
+	private Quaternion saveRotation;
+	[Header("Chance of dropping an Upgrade (Between 0 and 1)")]
     public float upgradeDropChance;
 
     [Header("Upgrade Sprite Prefab")]
     public GameObject upgradePrefab;
 
-    private Vector2 dir;
+	private Camera mainCamera;
+	// Use this for initialization
+	void Awake () {
+		mainCamera = Camera.main;
+	}
+
     // Use this for initialization
     void Start () {
-        dir = new Vector2(0.0f, -1.0f);
+		//player = GameObject.Find("Player").GetComponent<Transform>();
+		enemy = this.gameObject.GetComponent<Transform> ();
+		timer = 0;
+		dir = 0;
+		if(movementDelay <= 0)movementDelay = 1;
+		saveRotation = new Quaternion (transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
     }
 
     // Update is called once per frame
     void Update () {
-        movePlayer(dir);
+		if (timer >= movementDelay) {
+			timer = 0;
+			if (modulo (player.position.x - enemy.position.x) < 0.1)
+				dir = 0;
+			else if (player.position.x > enemy.position.x)
+				dir = 1;
+			else
+				dir = -1;
+		}
+		timer += Time.deltaTime;
+
+        move();
 
         //Needs to destroy object when its out of camera range
 	}
     
-    void movePlayer(Vector2 dir) {
-        transform.position += new Vector3(dir.x, dir.y, 0) * speed * Time.deltaTime;
-    }
+    void move() {
+		//dont move
+		if (dir == 0)
+			return;
+		else {
+	
+		Vector3 newPosition;
+		//to the right
+		if(dir ==  1)newPosition = transform.position + new Vector3(horizontalSpeed, -verticalSpeed, 0) * Time.deltaTime;
+		//to the left
+		else newPosition = transform.position + new Vector3(-horizontalSpeed, -verticalSpeed, 0) * Time.deltaTime;
+
+		transform.position = new Vector3(Mathf.Clamp(newPosition.x, GetMinHorizontalPosition(), GetMaxHorizontalPosition()),
+										Mathf.Clamp(newPosition.y, GetMinVerticalPosition(), GetMaxVerticalPosition() + 1), 0);
+    
+		}
+		transform.rotation = new Quaternion (saveRotation.x, saveRotation.y, saveRotation.z, saveRotation.w);
+	}
 
     public override void DestroyShip() {
         //Before destroing, I should add a piece of code to kill enemy
 
         //It has a chance of dropping an Upgrade, which depends on the level of this enemy
-        if (Random.value < upgradeDropChance) {
-
-            PlayerControl player = GameObject.Find("Player").GetComponent<PlayerControl>();
-
+		if (Random.value < upgradeDropChance && upgradePrefab != null) {
             Instantiate(upgradePrefab, transform.position, Quaternion.identity);
         }
 
         base.DestroyShip(); //Do the DestroyShip stuff
     }
 
-    void OnTriggerEnter2D (Collider2D col) {
+	void OnTriggerEnter (Collider col) {
         if (col.gameObject.tag == "PlayerBullet") {
             TakeDamage(col.gameObject.GetComponent<bulletScript>().GetDamage());
             col.gameObject.SendMessage("Destroy");
@@ -48,4 +91,27 @@ public class EnemyControl: ShipScript {
             TakeDamage(hitPoints);
         }
     }
+
+	public float GetMinHorizontalPosition()
+	{
+		return - mainCamera.orthographicSize * Screen.width / Screen.height;
+	}
+	public float GetMaxHorizontalPosition()
+	{
+		return mainCamera.orthographicSize * Screen.width / Screen.height;
+	}
+	public float GetMinVerticalPosition()
+	{
+		return - mainCamera.orthographicSize;
+	}
+	public float GetMaxVerticalPosition()
+	{
+		return  mainCamera.orthographicSize;
+	}
+
+	private float modulo(float n){
+		if (n < 0)
+			return - n;
+		return n;
+	}
 }

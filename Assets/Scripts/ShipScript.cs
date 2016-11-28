@@ -9,6 +9,8 @@ public class ShipScript : MonoBehaviour {
     [Header("Max move speed")]
     public float speed;
 
+	public GameObject explosion;
+
     protected void TakeDamage(float damage) {
 
         hitPoints -= damage;
@@ -19,7 +21,7 @@ public class ShipScript : MonoBehaviour {
     }
     // Use this for initialization
     public virtual void DestroyShip() {
-        //Instantiate(explosion);
+		Instantiate(explosion, this.transform.position, this.transform.rotation);
         Destroy(gameObject);
     }
 }
