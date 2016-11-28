@@ -3,25 +3,30 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class PlayerControl : ShipScript {
-
+    
     [Header("Max vertical position between 0(bot) and 1(top)")]
     public float maxVerticalPosition;
-
+    
     private Camera mainCamera;
     private float score;
-    private bool alive;
+    private bool alive, isInvunerable;
     private float InvunerabilityCounter;
 
     public static readonly float Invunerability_Time = 1.0f;
     public static readonly float Invunerability_Charge_Time = 10.0f;
 
-    // Use this for initialization
-    void Awake () {
-        sprite = GetComponent<SpriteRenderer>();
+    public static readonly float SHIP_WIDTH = 0.7f;
+    public static readonly float SHIP_HEIGHT = 0.7f;
+
+    private Vector3 defaultAngle;
+
+    void Start() {
+        defaultAngle = transform.eulerAngles;
         mainCamera = Camera.main;
         score = 0;
         alive = true;
         InvunerabilityCounter = 0.0f;
+        isInvunerable = false;
     }
 	
 	// Update is called once per frame
@@ -30,7 +35,7 @@ public class PlayerControl : ShipScript {
         dir = InputControl.GetMoveDirection();
 
         if (!dir.Equals(Vector2.zero))
-            movePlayer(dir);
+            MoveShip(dir);
 
         if (alive) {
             score += Time.deltaTime;
@@ -40,7 +45,6 @@ public class PlayerControl : ShipScript {
         if (InputControl.GetInvunerabilityUsed())
             StartCoroutine(InvunerabilityCoroutine());
 
-
         //For testing:
         GameObject.Find("Condition").GetComponent<TextMesh>().text = "Scr:" + score.ToString("F1") + "/Highscr:" + PersistentData.GetHighscore().ToString("F1") + "/Inv:" + (InvunerabilityCounter>=Invunerability_Charge_Time);
     }
@@ -48,16 +52,18 @@ public class PlayerControl : ShipScript {
     IEnumerator InvunerabilityCoroutine() {
         if (InvunerabilityCounter >= Invunerability_Charge_Time) {
             //If invunerability is charged, disables collider, plays animation, and resets invunerability counter
-            Collider2D collider = GetComponent<Collider2D>();
+            isInvunerable = true;
+            Collider collider = GetComponent<Collider>();
             collider.enabled = false;
             InvunerabilityCounter = 0.0f;
             yield return new WaitForSeconds(Invunerability_Time);
             //After a few seconds, reset the colliders
             collider.enabled = true;
+            isInvunerable = false;
         }
     }
     
-    void OnTriggerEnter2D(Collider2D col) {
+    void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "EnemyBullet") {
             TakeDamage(col.gameObject.GetComponent<bulletScript>().GetDamage());
             col.gameObject.SendMessage("Destroy");
@@ -87,29 +93,29 @@ public class PlayerControl : ShipScript {
 
     }
 
-    private void movePlayer(Vector2 dir) {
+    public override void MoveShip(Vector3 dir) {
         Vector3 newPosition = transform.position + new Vector3(dir.x, dir.y, 0) * speed * Time.deltaTime;
 
-        transform.position = new Vector3(Mathf.Clamp(newPosition.x, GetMinHorizontalPosition(), GetMaxHorizontalPosition()),
+        newPosition = new Vector3(Mathf.Clamp(newPosition.x, GetMinHorizontalPosition(), GetMaxHorizontalPosition()),
                                          Mathf.Clamp(newPosition.y, GetMinVerticalPosition(), GetMaxVerticalPosition()), 0);
-    }
 
-    public float GetPlayerWidth() {
-        return sprite.sprite.bounds.size.x;
-    }
-    public float GetPlayerHeight() {
-        return sprite.sprite.bounds.size.y;
+
+        if (GetComponent<Collider>().enabled)
+            transform.eulerAngles = defaultAngle + new Vector3(-dir.y * xFlipCoef, -dir.x * yFlipCoef, 0.0f);
+
+        transform.position = newPosition;
+
     }
     public float GetMinHorizontalPosition() {
-        return GetPlayerWidth() / 2.0f - mainCamera.orthographicSize * Screen.width / Screen.height;
+        return SHIP_WIDTH / 2.0f - mainCamera.orthographicSize * Screen.width / Screen.height;
     }
     public float GetMaxHorizontalPosition() {
-        return mainCamera.orthographicSize * Screen.width / Screen.height - GetPlayerWidth() / 2.0f;
+        return mainCamera.orthographicSize * Screen.width / Screen.height - SHIP_WIDTH / 2.0f;
     }
     public float GetMinVerticalPosition() {
-        return GetPlayerHeight() / 2.0f - mainCamera.orthographicSize;
+        return SHIP_HEIGHT / 2.0f - mainCamera.orthographicSize;
     }
     public float GetMaxVerticalPosition() {
-        return (2 * maxVerticalPosition - 1) * mainCamera.orthographicSize;
+        return (2*maxVerticalPosition-1) * mainCamera.orthographicSize;
     }
 }

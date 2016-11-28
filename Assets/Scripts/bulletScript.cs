@@ -9,6 +9,8 @@ public class bulletScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Destroy(transform.gameObject, 3.0f);
+
+        //SetColor(Color.);
 	}
 	
 	// Update is called once per frame
@@ -22,6 +24,18 @@ public class bulletScript : MonoBehaviour {
 
     public void SetTag(string tag) {
         gameObject.tag = tag + "Bullet";
+    }
+
+    public void SetColor (Color color) {
+
+        TrailRenderer trail = GetComponent<TrailRenderer>();
+        Material newMaterial = new Material(trail.material);
+        newMaterial.SetColor("_TintColor", color);
+
+        trail.material = newMaterial;
+
+        Light light = GetComponent<Light>();
+        light.color = color;
     }
 
     public float GetDamage() {

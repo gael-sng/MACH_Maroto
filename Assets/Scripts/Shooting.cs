@@ -51,10 +51,11 @@ public class Shooting : MonoBehaviour {
     }
 
     private void Shoot() {
-        GameObject bulletInst = (GameObject) Instantiate(actualBullet.bulletPrefab, barrel.transform.position, barrel.transform.rotation);
-        bulletInst.SendMessage("SetSpeed", actualBullet.bulletSpeed);
-        bulletInst.SendMessage("SetDamage", actualBullet.bulletDamage);
-        bulletInst.SendMessage("SetTag", gameObject.tag);
-    }
+        Quaternion bulletRotation = Quaternion.Euler(Vector3.forward*barrel.transform.eulerAngles.z);
+        GameObject bulletInst = (GameObject) Instantiate(actualBullet.bulletPrefab, barrel.transform.position, bulletRotation);
 
+        bulletInst.GetComponent<bulletScript>().SetSpeed(actualBullet.bulletSpeed);
+        bulletInst.GetComponent<bulletScript>().SetDamage(actualBullet.bulletDamage);
+        bulletInst.GetComponent<bulletScript>().SetTag(gameObject.tag);
+    }
 }

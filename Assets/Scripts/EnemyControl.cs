@@ -10,20 +10,30 @@ public class EnemyControl: ShipScript {
     public GameObject upgradePrefab;
 
     private Vector2 dir;
-    // Use this for initialization
-    void Start () {
+
+    private Vector3 defaultAngle;
+
+    void Start() {
+        defaultAngle = transform.eulerAngles;
         dir = new Vector2(0.0f, -1.0f);
     }
 
     // Update is called once per frame
     void Update () {
-        movePlayer(dir);
+        MoveShip(dir);
 
         //Needs to destroy object when its out of camera range
 	}
     
-    void movePlayer(Vector2 dir) {
+    public override void MoveShip(Vector3 dir) {
         transform.position += new Vector3(dir.x, dir.y, 0) * speed * Time.deltaTime;
+
+        if (GetComponent<Collider>().enabled)
+            transform.eulerAngles = defaultAngle + new Vector3(0, -dir.x * yFlipCoef, dir.y * xFlipCoef);
+    }
+
+    void OnBecameVisible() {
+        GetComponent<MeshCollider>().enabled = true;
     }
 
     public override void DestroyShip() {
@@ -40,7 +50,7 @@ public class EnemyControl: ShipScript {
         base.DestroyShip(); //Do the DestroyShip stuff
     }
 
-    void OnTriggerEnter2D (Collider2D col) {
+    void OnTriggerEnter (Collider col) {
         if (col.gameObject.tag == "PlayerBullet") {
             TakeDamage(col.gameObject.GetComponent<bulletScript>().GetDamage());
             col.gameObject.SendMessage("Destroy");

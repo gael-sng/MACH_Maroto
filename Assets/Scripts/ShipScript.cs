@@ -9,8 +9,9 @@ public class ShipScript : MonoBehaviour {
     [Header("Max move speed")]
     public float speed;
 
-    [Header("Ship sprite")]
-    public SpriteRenderer sprite;
+    public static readonly float yFlipCoef = 30.0f;
+    public static readonly float xFlipCoef = 10.0f;
+
 
     protected void TakeDamage(float damage) {
 
@@ -20,6 +21,9 @@ public class ShipScript : MonoBehaviour {
             DestroyShip();
         }
     }
+
+    public virtual void MoveShip(Vector3 dir) { }
+
     // Use this for initialization
     public virtual void DestroyShip() {
         //Instantiate(explosion);
