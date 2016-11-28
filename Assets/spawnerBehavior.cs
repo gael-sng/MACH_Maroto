@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class spawnerBehavior : MonoBehaviour {
+public class spawnerBehavior : Utilities {
 	public GameObject player;
 	public GameObject enemy_1;
 	public GameObject enemy_2;
@@ -11,11 +11,6 @@ public class spawnerBehavior : MonoBehaviour {
 	public float spawnDelay;
 
 	private float timer;
-	private Camera mainCamera;
-
-	void Awake () {
-		mainCamera = Camera.main;
-	}
 
 	// Use this for initialization
 	void Start () {
@@ -87,22 +82,5 @@ public class spawnerBehavior : MonoBehaviour {
 			}
 		}
 		timer += Time.deltaTime;
-	}
-
-	public float GetMinHorizontalPosition()
-	{
-		return - mainCamera.orthographicSize * Screen.width / Screen.height;
-	}
-	public float GetMaxHorizontalPosition()
-	{
-		return mainCamera.orthographicSize * Screen.width / Screen.height;
-	}
-	public float GetMinVerticalPosition()
-	{
-		return - mainCamera.orthographicSize;
-	}
-	public float GetMaxVerticalPosition()
-	{
-		return  mainCamera.orthographicSize;
 	}
 }
