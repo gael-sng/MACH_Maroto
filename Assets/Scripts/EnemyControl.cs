@@ -12,7 +12,6 @@ public class EnemyControl: ShipScript {
 	public float horizontalSpeed;
 	private Transform enemy;
 
-	private Quaternion saveRotation;
 	[Header("Chance of dropping an Upgrade (Between 0 and 1)")]
     public float upgradeDropChance;
 
@@ -32,7 +31,6 @@ public class EnemyControl: ShipScript {
 		timer = 0;
 		dir = 0;
 		if(movementDelay <= 0)movementDelay = 1;
-		saveRotation = new Quaternion (transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
     }
 
     // Update is called once per frame
@@ -69,7 +67,6 @@ public class EnemyControl: ShipScript {
 										Mathf.Clamp(newPosition.y, GetMinVerticalPosition(), GetMaxVerticalPosition() + 1), 0);
     
 		}
-		transform.rotation = new Quaternion (saveRotation.x, saveRotation.y, saveRotation.z, saveRotation.w);
 	}
 
     public override void DestroyShip() {
@@ -84,6 +81,7 @@ public class EnemyControl: ShipScript {
     }
 
 	void OnTriggerEnter (Collider col) {
+		print ("acerto miseravi");
         if (col.gameObject.tag == "PlayerBullet") {
             TakeDamage(col.gameObject.GetComponent<bulletScript>().GetDamage());
             col.gameObject.SendMessage("Destroy");

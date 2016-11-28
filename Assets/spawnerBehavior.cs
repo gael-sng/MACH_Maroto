@@ -25,7 +25,7 @@ public class spawnerBehavior : Utilities {
 			GameObject enemy;
 			switch((int)Random.Range(1, 5)){
 			case 1:
-				print ("case 1");
+				//print ("case 1");
 				if (enemy_1) {
 					enemy = Instantiate (enemy_1);
 
@@ -38,7 +38,7 @@ public class spawnerBehavior : Utilities {
 				break;
 
 			case 2:
-				print ("case 2");
+				//print ("case 2");
 				if (enemy_1) {
 					enemy = Instantiate (enemy_1);
 
@@ -51,7 +51,7 @@ public class spawnerBehavior : Utilities {
 				break;
 
 			case 3:
-				print ("case 3");
+				//print ("case 3");
 				if (enemy_1) {
 					enemy = Instantiate (enemy_1);
 
@@ -64,7 +64,7 @@ public class spawnerBehavior : Utilities {
 				break;
 
 			case 4:
-				print ("case 4");
+				//print ("case 4");
 				if (enemy_1) {
 					enemy = Instantiate (enemy_1);
 

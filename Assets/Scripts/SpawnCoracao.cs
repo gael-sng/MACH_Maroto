@@ -43,14 +43,14 @@ public class SpawnCoracao : Utilities {
             SceneManager.LoadScene("Game Over");//carrega cena gameover
         }
     }
-    void AddHeart()
+    public void AddHeart()
     {
 		if (currentLives < 10) {
 			lifes[currentLives].SetActive(true);
 			currentLives++;
         }       
     }
-    void RemoveHeart()
+    public void RemoveHeart()
     {
 		currentLives--;
 		lifes[currentLives].SetActive(false);
