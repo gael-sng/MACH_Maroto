@@ -4,7 +4,7 @@ using System.Collections;
 public static class InputControl {
     private static Matrix4x4 calibrationMatrix;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_WIN_STANDALONE
     public static Vector3 GetMoveDirection() {
         return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
