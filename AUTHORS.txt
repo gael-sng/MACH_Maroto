@@ -1,0 +1,5 @@
+MACH_Maroto is developed by:
+Cristiano Di Maio Chiaramelli (cristianochiaramelli@gmail.com)
+Elisa Saltori Trujillo (elisa.trujillo@usp.br)
+Gabriel Simmel Nascimento (gael.sng@gmail.com)
+Jorge Hideki Motokubo Halker (jorgehideki10@hotmail.com)
