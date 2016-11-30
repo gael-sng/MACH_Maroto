@@ -20,6 +20,7 @@ public class spawnerBehavior : Utilities {
 	
 	// Update is called once per frame
 	void Update () {
+		if (player == null) return;
 		if (timer >= spawnDelay) {
 			timer = 0;
 			GameObject enemy;

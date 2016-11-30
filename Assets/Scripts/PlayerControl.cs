@@ -33,7 +33,11 @@ public class PlayerControl : ShipScript {
         InvunerabilityCounter = 0.0f;
 
         aux = (GetMaxHorizontalPosition() - GetMinHorizontalPosition()) / 12.0f;
-        live.GetComponent<SpriteRenderer>().bounds.size.Set(aux, aux, 0);
+		print ("aux = " + aux);
+		print ("GetMaxHorizontalPosition = " + GetMaxHorizontalPosition() + "\nGetMinHorizontalPosition = " + GetMinHorizontalPosition());
+		print ("GetMaxVerticalPosition= " + GetMaxVerticalPosition() + "\nGetMinVerticalPosition = " + GetMinVerticalPosition());
+		print("posição horizontal = " + (aux * 1.5f + GetMinHorizontalPosition()) + "\nposição vertical = " + (1.0f * aux + GetMaxVerticalPosition()) );
+        live.GetComponent<SpriteRenderer>().bounds.size.Set(40*aux, 40*aux, 0);
         positionVidas = new Vector3(aux * 1.5f + GetMinHorizontalPosition(), -1.0f * aux + GetMaxVerticalPosition(), 0);
         for (int i = 0; i < maxLifes; i++)
         {
@@ -118,8 +122,8 @@ public class PlayerControl : ShipScript {
     public override void MoveShip(Vector3 dir) {
         Vector3 newPosition = transform.position + new Vector3(dir.x, dir.y, 0) * speed * Time.deltaTime;
 
-        newPosition = new Vector3(Mathf.Clamp(newPosition.x, GetMinHorizontalPosition(), GetMaxHorizontalPosition()),
-                                         Mathf.Clamp(newPosition.y, GetMinVerticalPosition(), GetMaxVerticalPosition()), 0);
+		newPosition = new Vector3(Mathf.Clamp(newPosition.x, GetPlayerMinHorizontalPosition(), GetPlayerMaxHorizontalPosition()),
+			Mathf.Clamp(newPosition.y, GetPlayerMinVerticalPosition(), GetPlayerMaxVerticalPosition()), 0);
 
 
         //if (GetComponent<Collider>().enabled)
@@ -142,16 +146,16 @@ public class PlayerControl : ShipScript {
         countLives[(int)gameObject.GetComponent<PlayerControl>().hitPoints].SetActive(false);
     }
 
-    public float GetMinHorizontalPosition() {
+    public float GetPlayerMinHorizontalPosition() {
         return SHIP_WIDTH / 2.0f - mainCamera.orthographicSize * Screen.width / Screen.height;
     }
-    public float GetMaxHorizontalPosition() {
+    public float GetPlayerMaxHorizontalPosition() {
         return mainCamera.orthographicSize * Screen.width / Screen.height - SHIP_WIDTH / 2.0f;
     }
-    public float GetMinVerticalPosition() {
+    public float GetPlayerMinVerticalPosition() {
         return SHIP_HEIGHT / 2.0f - mainCamera.orthographicSize;
     }
-    public float GetMaxVerticalPosition() {
+	public float GetPlayerMaxVerticalPosition() {
         return (2*maxVerticalPosition-1) * mainCamera.orthographicSize;
     }
 }
