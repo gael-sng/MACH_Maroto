@@ -17,6 +17,8 @@ public class SpawnCoracao : Utilities {
 			initialHearts = 3;
 		aux = (GetMaxHorizontalPosition() - GetMinHorizontalPosition())/12.0f;
         live.GetComponent<SpriteRenderer> ().bounds.size.Set(aux, aux, 0);
+        live.transform.localScale = new Vector3(10, 10, 1);
+        
         positionVidas = new Vector3 (aux * 1.5f + GetMinHorizontalPosition(), -1.0f * aux + GetMaxVerticalPosition(), 0);
 		print ("aux = " + aux);
 		for (int i=0; i < maxLifes; i++)

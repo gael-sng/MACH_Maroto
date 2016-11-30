@@ -11,7 +11,7 @@ public class PlayerControl : ShipScript {
     private float score;
     private bool alive;
     private float InvunerabilityCounter;
-    public GameObject live;
+    public GameObject life;
     private Vector3 positionVidas;
     private float aux;
     private GameObject[] countLives = new GameObject[10];
@@ -37,11 +37,12 @@ public class PlayerControl : ShipScript {
 		print ("GetMaxHorizontalPosition = " + GetMaxHorizontalPosition() + "\nGetMinHorizontalPosition = " + GetMinHorizontalPosition());
 		print ("GetMaxVerticalPosition= " + GetMaxVerticalPosition() + "\nGetMinVerticalPosition = " + GetMinVerticalPosition());
 		print("posição horizontal = " + (aux * 1.5f + GetMinHorizontalPosition()) + "\nposição vertical = " + (1.0f * aux + GetMaxVerticalPosition()) );
-        live.GetComponent<SpriteRenderer>().bounds.size.Set(40*aux, 40*aux, 0);
+        //life.GetComponent<SpriteRenderer>().bounds.size.Set(40*aux, 40*aux, 0);
+        life.transform.localScale = new Vector3(aux, aux, 1);
         positionVidas = new Vector3(aux * 1.5f + GetMinHorizontalPosition(), -1.0f * aux + GetMaxVerticalPosition(), 0);
         for (int i = 0; i < maxLifes; i++)
         {
-            countLives[i] = (GameObject)Instantiate(live, positionVidas, Quaternion.identity);
+            countLives[i] = (GameObject)Instantiate(life, positionVidas, Quaternion.identity);
             countLives[i].SetActive(false);
             positionVidas = positionVidas + Vector3.right * aux;
         }
