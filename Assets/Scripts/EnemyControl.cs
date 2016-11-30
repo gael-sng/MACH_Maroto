@@ -59,7 +59,7 @@ public class EnemyControl: ShipScript {
 		else newPosition = transform.position + new Vector3(-horizontalSpeed, -verticalSpeed, 0) * Time.deltaTime;
 
 		transform.position = new Vector3(Mathf.Clamp(newPosition.x, GetMinHorizontalPosition(), GetMaxHorizontalPosition()),
-										Mathf.Clamp(newPosition.y, GetMinVerticalPosition(), GetMaxVerticalPosition() + 1), 0);
+										Mathf.Clamp(newPosition.y, GetMinVerticalPosition() - 3.0f, GetMaxVerticalPosition() + 1), 0);
     
 		}
 	}
