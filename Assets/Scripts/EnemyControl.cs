@@ -18,11 +18,6 @@ public class EnemyControl: ShipScript {
     [Header("Upgrade Sprite Prefab")]
     public GameObject upgradePrefab;
 
-	private Camera mainCamera;
-	// Use this for initialization
-	void Awake () {
-		mainCamera = Camera.main;
-	}
 
     // Use this for initialization
     void Start () {
@@ -89,23 +84,6 @@ public class EnemyControl: ShipScript {
             TakeDamage(hitPoints);
         }
     }
-
-	public float GetMinHorizontalPosition()
-	{
-		return - mainCamera.orthographicSize * Screen.width / Screen.height;
-	}
-	public float GetMaxHorizontalPosition()
-	{
-		return mainCamera.orthographicSize * Screen.width / Screen.height;
-	}
-	public float GetMinVerticalPosition()
-	{
-		return - mainCamera.orthographicSize;
-	}
-	public float GetMaxVerticalPosition()
-	{
-		return  mainCamera.orthographicSize;
-	}
 
 	private float modulo(float n){
 		if (n < 0)

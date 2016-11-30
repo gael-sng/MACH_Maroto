@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ShipScript : MonoBehaviour {
+public class ShipScript : Utilities {
 
     [Header("Hitpoints")]
     public float hitPoints;
