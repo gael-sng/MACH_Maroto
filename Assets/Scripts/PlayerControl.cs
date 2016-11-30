@@ -27,17 +27,16 @@ public class PlayerControl : ShipScript {
     //private Vector3 defaultAngle;
 
     void Start() {
-        //defaultAngle = transform.eulerAngles;
         mainCamera = Camera.main;
         score = 0;
         alive = true;
         InvunerabilityCounter = 0.0f;
 
         aux = (GetMaxHorizontalPosition() - GetMinHorizontalPosition()) / 12.0f;
-        //life.GetComponent<SpriteRenderer>().bounds.size.Set(40*aux, 40*aux, 0);
 		life.transform.localScale = new Vector3(aux, aux, 1);
 		lifeaBackground.transform.localScale = new Vector3(GetMaxHorizontalPosition() - GetMinHorizontalPosition(), aux * 0.5f, 1);
         positionVidas = new Vector3(aux * 1.5f + GetMinHorizontalPosition(), -0.5f * aux + GetMaxVerticalPosition(), -1);
+		print ("x inicial = " + ( GetMinHorizontalPosition()));
         for (int i = 0; i < maxLifes; i++)
         {
             countLives[i] = (GameObject)Instantiate(life, positionVidas, Quaternion.identity);
