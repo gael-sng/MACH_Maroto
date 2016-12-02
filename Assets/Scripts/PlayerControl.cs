@@ -12,6 +12,7 @@ public class PlayerControl : ShipScript {
     private bool alive;
     private float InvunerabilityCounter;
     public GameObject life;
+	public GameObject lifeaBackground;
     private Vector3 positionVidas;
     private float aux;
     private GameObject[] countLives = new GameObject[10];
@@ -26,24 +27,21 @@ public class PlayerControl : ShipScript {
     //private Vector3 defaultAngle;
 
     void Start() {
-        //defaultAngle = transform.eulerAngles;
         mainCamera = Camera.main;
         score = 0;
         alive = true;
         InvunerabilityCounter = 0.0f;
 
         aux = (GetMaxHorizontalPosition() - GetMinHorizontalPosition()) / 12.0f;
-		print ("aux = " + aux);
-		print ("GetMaxHorizontalPosition = " + GetMaxHorizontalPosition() + "\nGetMinHorizontalPosition = " + GetMinHorizontalPosition());
-		print ("GetMaxVerticalPosition= " + GetMaxVerticalPosition() + "\nGetMinVerticalPosition = " + GetMinVerticalPosition());
-		print("posição horizontal = " + (aux * 1.5f + GetMinHorizontalPosition()) + "\nposição vertical = " + (1.0f * aux + GetMaxVerticalPosition()) );
-        //life.GetComponent<SpriteRenderer>().bounds.size.Set(40*aux, 40*aux, 0);
-        life.transform.localScale = new Vector3(aux, aux, 1);
-        positionVidas = new Vector3(aux * 1.5f + GetMinHorizontalPosition(), -1.0f * aux + GetMaxVerticalPosition(), 0);
+		life.transform.localScale = new Vector3(aux, aux, 1);
+		lifeaBackground.transform.localScale = new Vector3(GetMaxHorizontalPosition() - GetMinHorizontalPosition(), aux * 0.5f, 1);
+        positionVidas = new Vector3(aux * 1.5f + GetMinHorizontalPosition(), -0.5f * aux + GetMaxVerticalPosition(), -1);
+		print ("x inicial = " + ( GetMinHorizontalPosition()));
         for (int i = 0; i < maxLifes; i++)
         {
             countLives[i] = (GameObject)Instantiate(life, positionVidas, Quaternion.identity);
             countLives[i].SetActive(false);
+			if (i == (int)(maxLifes / 2)) Instantiate (lifeaBackground, positionVidas + Vector3.forward * 0.5f, Quaternion.identity);
             positionVidas = positionVidas + Vector3.right * aux;
         }
 

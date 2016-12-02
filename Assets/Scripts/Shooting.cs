@@ -55,7 +55,6 @@ public class Shooting : MonoBehaviour {
         GameObject bulletInst = (GameObject) Instantiate(actualBullet.bulletPrefab, barrel.transform.position, bulletRotation);
 
         bulletInst.GetComponent<bulletScript>().SetSpeed(actualBullet.bulletSpeed);
-		print ("bullet speed=" + actualBullet.bulletSpeed);
         bulletInst.GetComponent<bulletScript>().SetDamage(actualBullet.bulletDamage);
         bulletInst.GetComponent<bulletScript>().SetTag(gameObject.tag);
     }
