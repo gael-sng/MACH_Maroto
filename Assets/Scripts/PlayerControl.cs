@@ -16,6 +16,9 @@ public class PlayerControl : ShipScript {
     private Vector3 positionVidas;
     private float aux;
     private GameObject[] countLives = new GameObject[10];
+    private Transform shipTransform;
+    private Quaternion originalShipRotation;
+    public float tiltAngle;
 
     public static readonly int maxLifes = 10;
     public static readonly float Invunerability_Time = 1.0f;
@@ -50,7 +53,12 @@ public class PlayerControl : ShipScript {
 
         for (int i = 0; i < gameObject.GetComponent<PlayerControl>().hitPoints; i++)
             countLives[i].SetActive(true);
+
+        shipTransform = this.gameObject.transform.GetChild(0);
         
+        originalShipRotation= shipTransform.localRotation;
+        print("x:" + originalShipRotation.x + " y:" + originalShipRotation.y + " z:" + originalShipRotation.z);
+
     }
 	
 	// Update is called once per frame
@@ -60,6 +68,9 @@ public class PlayerControl : ShipScript {
 
         if (!dir.Equals(Vector2.zero))
             MoveShip(dir);
+        else
+            shipTransform.localRotation = originalShipRotation;
+
 
         if (alive) {
             score += Time.deltaTime;
@@ -124,9 +135,13 @@ public class PlayerControl : ShipScript {
 		newPosition = new Vector3(Mathf.Clamp(newPosition.x, GetPlayerMinHorizontalPosition(), GetPlayerMaxHorizontalPosition()),
 			Mathf.Clamp(newPosition.y, GetPlayerMinVerticalPosition(), GetPlayerMaxVerticalPosition()), 0);
 
-
+        //z roda para lados, x roda para frente/tras
         //if (GetComponent<Collider>().enabled)
-		//transform.rotation = Quaternion.Euler(new Vector3(-dir.y * xFlipCoef, -dir.x * yFlipCoef, 0.0f));
+
+
+        //print("x:" + dir.x + " y:" + dir.y);
+         shipTransform.rotation = Quaternion.Euler(new Vector3(0+originalShipRotation.x, dir.y * tiltAngle+originalShipRotation.y, dir.x*tiltAngle+ originalShipRotation.z));
+        //shipTransform.localRotation = Quaternion.Euler(new Vector3(90+ originalShipRotation.x, dir.y * tiltAngle + originalShipRotation.y, dir.x * tiltAngle + originalShipRotation.z));
 
         transform.position = newPosition;
 
