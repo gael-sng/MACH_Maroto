@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class spawnerBehavior : Utilities {
+	[Header("Current player reference")]
 	public GameObject player;
+	[Header("Enemies prfabs:")]
 	public GameObject enemy_1;
 	public GameObject enemy_2;
 	public GameObject enemy_3;
