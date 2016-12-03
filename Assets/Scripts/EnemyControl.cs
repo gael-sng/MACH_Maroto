@@ -76,7 +76,6 @@ public class EnemyControl: ShipScript {
     }
 
 	void OnTriggerEnter (Collider col) {
-		print ("acerto miseravi");
         if (col.gameObject.tag == "PlayerBullet") {
             TakeDamage(col.gameObject.GetComponent<bulletScript>().GetDamage());
             col.gameObject.SendMessage("Destroy");
