@@ -34,7 +34,7 @@ public class EnemyControl: ShipScript {
 
     // Update is called once per frame
     void Update () {
-		if (timer >= movementDelay) {
+		if (timer >= movementDelay && player != null) {
 			timer = 0;
 			if (modulo (player.position.x - enemy.position.x) < 0.1)
 				dir = 0;
