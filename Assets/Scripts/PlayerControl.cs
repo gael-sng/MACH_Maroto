@@ -9,16 +9,16 @@ public class PlayerControl : ShipScript {
     
     private Camera mainCamera;
     private float score;
-    private bool alive;
+    private bool alive, isInvunerable;
     private float InvunerabilityCounter;
     public GameObject life;
 	public GameObject lifeaBackground;
     private Vector3 positionVidas;
     private float aux;
     private GameObject[] countLives = new GameObject[10];
-    private Transform shipTransform;
-    private Quaternion originalShipRotation;
-    public float tiltAngle;
+
+    private Quaternion barrelDefault;
+    private Vector3 defaultAngle;
 
     public static readonly int maxLifes = 10;
     public static readonly float Invunerability_Time = 1.0f;
@@ -27,13 +27,16 @@ public class PlayerControl : ShipScript {
     public static readonly float SHIP_WIDTH = 0.7f;
     public static readonly float SHIP_HEIGHT = 0.7f;
 
-    //private Vector3 defaultAngle;
+   
 
     void Start() {
+        defaultAngle = transform.eulerAngles;
+        barrelDefault = transform.GetChild(0).rotation;
         mainCamera = Camera.main;
         score = 0;
         alive = true;
         InvunerabilityCounter = 0.0f;
+       
 
         aux = (GetMaxHorizontalPosition() - GetMinHorizontalPosition()) / 12.0f;
 		life.transform.localScale = new Vector3(aux, aux, 1);
@@ -54,10 +57,7 @@ public class PlayerControl : ShipScript {
         for (int i = 0; i < gameObject.GetComponent<PlayerControl>().hitPoints; i++)
             countLives[i].SetActive(true);
 
-        shipTransform = this.gameObject.transform.GetChild(0);
-        
-        originalShipRotation= shipTransform.localRotation;
-        print("x:" + originalShipRotation.x + " y:" + originalShipRotation.y + " z:" + originalShipRotation.z);
+
 
     }
 	
@@ -68,10 +68,8 @@ public class PlayerControl : ShipScript {
 
         if (!dir.Equals(Vector2.zero))
             MoveShip(dir);
-        else
-            shipTransform.localRotation = originalShipRotation;
 
-
+   
         if (alive) {
             score += Time.deltaTime;
             InvunerabilityCounter = Mathf.Clamp(InvunerabilityCounter + Time.deltaTime, 0, Invunerability_Charge_Time);
@@ -87,12 +85,14 @@ public class PlayerControl : ShipScript {
     IEnumerator InvunerabilityCoroutine() {
         if (InvunerabilityCounter >= Invunerability_Charge_Time) {
             //If invunerability is charged, disables collider, plays animation, and resets invunerability counter
+            isInvunerable = true;
             Collider collider = GetComponent<Collider>();
             collider.enabled = false;
             InvunerabilityCounter = 0.0f;
             yield return new WaitForSeconds(Invunerability_Time);
             //After a few seconds, reset the colliders
             collider.enabled = true;
+            isInvunerable = false;
         }
     }
     
@@ -135,13 +135,12 @@ public class PlayerControl : ShipScript {
 		newPosition = new Vector3(Mathf.Clamp(newPosition.x, GetPlayerMinHorizontalPosition(), GetPlayerMaxHorizontalPosition()),
 			Mathf.Clamp(newPosition.y, GetPlayerMinVerticalPosition(), GetPlayerMaxVerticalPosition()), 0);
 
-        //z roda para lados, x roda para frente/tras
-        //if (GetComponent<Collider>().enabled)
-
-
-        //print("x:" + dir.x + " y:" + dir.y);
-         shipTransform.rotation = Quaternion.Euler(new Vector3(0+originalShipRotation.x, dir.y * tiltAngle+originalShipRotation.y, dir.x*tiltAngle+ originalShipRotation.z));
-        //shipTransform.localRotation = Quaternion.Euler(new Vector3(90+ originalShipRotation.x, dir.y * tiltAngle + originalShipRotation.y, dir.x * tiltAngle + originalShipRotation.z));
+        if (GetComponent<Collider>().enabled)
+        {
+            transform.eulerAngles = defaultAngle + new Vector3(-dir.y * xFlipCoef, -dir.x * yFlipCoef, 0.0f);
+            transform.GetChild(0).rotation = barrelDefault;
+        }
+            
 
         transform.position = newPosition;
 
