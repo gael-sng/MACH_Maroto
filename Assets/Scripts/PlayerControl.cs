@@ -17,6 +17,7 @@ public class PlayerControl : ShipScript {
     private float aux;
     private GameObject[] countLives = new GameObject[10];
 
+    private Quaternion barrelDefault;
     private Vector3 defaultAngle;
 
     public static readonly int maxLifes = 10;
@@ -30,6 +31,7 @@ public class PlayerControl : ShipScript {
 
     void Start() {
         defaultAngle = transform.eulerAngles;
+        barrelDefault = transform.GetChild(0).rotation;
         mainCamera = Camera.main;
         score = 0;
         alive = true;
@@ -134,7 +136,11 @@ public class PlayerControl : ShipScript {
 			Mathf.Clamp(newPosition.y, GetPlayerMinVerticalPosition(), GetPlayerMaxVerticalPosition()), 0);
 
         if (GetComponent<Collider>().enabled)
+        {
             transform.eulerAngles = defaultAngle + new Vector3(-dir.y * xFlipCoef, -dir.x * yFlipCoef, 0.0f);
+            transform.GetChild(0).rotation = barrelDefault;
+        }
+            
 
         transform.position = newPosition;
 

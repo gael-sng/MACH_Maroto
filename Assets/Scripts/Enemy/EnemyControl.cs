@@ -12,7 +12,10 @@ public class EnemyControl: ShipScript {
 	public float horizontalSpeed;
 	private Transform enemy;
 
-	[Header("Chance of dropping an Upgrade (Between 0 and 1)")]
+    private Vector3 defaultAngle;
+
+
+    [Header("Chance of dropping an Upgrade (Between 0 and 1)")]
     public float upgradeDropChance;
 
     [Header("Upgrade Sprite Prefab")]
@@ -21,8 +24,9 @@ public class EnemyControl: ShipScript {
 
     // Use this for initialization
     void Start () {
-		//player = GameObject.Find("Player").GetComponent<Transform>();
-		enemy = this.gameObject.GetComponent<Transform> ();
+        //player = GameObject.Find("Player").GetComponent<Transform>();
+        defaultAngle = transform.eulerAngles;
+        enemy = this.gameObject.GetComponent<Transform> ();
 		timer = 0;
 		dir = 0;
 		if(movementDelay <= 0)movementDelay = 1;
@@ -60,8 +64,9 @@ public class EnemyControl: ShipScript {
 
 		transform.position = new Vector3(Mathf.Clamp(newPosition.x, GetMinHorizontalPosition(), GetMaxHorizontalPosition()),
 										Mathf.Clamp(newPosition.y, GetMinVerticalPosition() - 3.0f, GetMaxVerticalPosition() + 1), 0);
-    
-		}
+
+        transform.eulerAngles = defaultAngle + new Vector3(0, -dir* yFlipCoef, 0.0f);
+        }
 	}
 
     public override void DestroyShip() {
