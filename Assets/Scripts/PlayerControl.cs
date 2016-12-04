@@ -105,7 +105,7 @@ public class PlayerControl : ShipScript {
             TakeDamage(hitPoints);
             RemoveLive();
         }else if (col.gameObject.tag == "UP") {
-            GetComponent<Shooting>().UpgradeBullet();
+            GetComponent<PlayerShooting>().UpgradeBullet();
             Destroy(col.gameObject);
         }
     }
