@@ -4,17 +4,22 @@ using System.Collections;
 public class EnemyShooting : Shooting {
 
     [Header("Bullet damage")]
-    public new float bulletDamage;
+    public float BulletDamage;
     [Header("Secs per shot")]
-    public new float shootingInterval;
+    public float ShootingInterval;
     [Header("Bullet speed")]
-    public new float bulletSpeed;
+    public float BulletSpeed;
     [Header("Bullet Prefab")]
-    public new GameObject bulletPrefab;
+    public GameObject BulletPrefab;
 
     private GameObject barrel;
 
     void Start() {
+        bulletDamage = BulletDamage;
+        shootingInterval = ShootingInterval;
+        bulletSpeed = BulletSpeed;
+        bulletPrefab = BulletPrefab;
+
         foreach (Transform child in transform)
             if (child.tag == "Barrel")
                 barrel = child.gameObject;
