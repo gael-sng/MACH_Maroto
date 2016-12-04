@@ -16,7 +16,6 @@ public class PlayerControl : ShipScript {
     private Vector3 positionVidas;
     private float aux;
     private GameObject[] countLives = new GameObject[10];
-
     private Vector3 defaultAngle;
 
     public static readonly int maxLifes = 10;
@@ -34,7 +33,6 @@ public class PlayerControl : ShipScript {
         score = 0;
         alive = true;
         InvunerabilityCounter = 0.0f;
-       
 
         aux = (GetMaxHorizontalPosition() - GetMinHorizontalPosition()) / 12.0f;
 		life.transform.localScale = new Vector3(aux, aux, 1);
@@ -67,6 +65,10 @@ public class PlayerControl : ShipScript {
         if (!dir.Equals(Vector2.zero))
             MoveShip(dir);
 
+        {
+            AddLive();
+            countdown = 10.0f;
+        }
    
         if (alive) {
             score += Time.deltaTime;
