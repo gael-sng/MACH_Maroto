@@ -16,9 +16,17 @@ public class PlayerControl : ShipScript {
     private Vector3 positionVidas;
     private float aux;
     private GameObject[] countLives = new GameObject[10];
+//<<<<<<< HEAD
 
     private Quaternion barrelDefault;
+//=======
+    private float countdown = 10.0f;        //Variavel para contagem de tempo para ganhar nova vida (decidir um tempo bom para ganhar novas vidas)
+    public GameObject lifeUP;               //GameObject para imagem de LifeUP
+    private bool vidaSwitch = false;
+    private GameObject lifeUPRunTime;
+//>>>>>>> origin/jorginho
     private Vector3 defaultAngle;
+    
 
     public static readonly int maxLifes = 10;
     public static readonly float Invunerability_Time = 1.0f;
@@ -36,10 +44,8 @@ public class PlayerControl : ShipScript {
         score = 0;
         alive = true;
         InvunerabilityCounter = 0.0f;
-       
 
         aux = (GetMaxHorizontalPosition() - GetMinHorizontalPosition()) / 12.0f;
-		life.transform.localScale = new Vector3(aux, aux, 1);
 		lifeaBackground.transform.localScale = new Vector3(GetMaxHorizontalPosition() - GetMinHorizontalPosition(), aux * 0.5f, 1);
         positionVidas = new Vector3(aux * 1.5f + GetMinHorizontalPosition(), -0.5f * aux + GetMaxVerticalPosition(), -1);
 		print ("x inicial = " + ( GetMinHorizontalPosition()));
@@ -65,10 +71,24 @@ public class PlayerControl : ShipScript {
 	void Update () {
         Vector2 dir;//dir.x between 0 and 1. Same for dir.y
         dir = InputControl.GetMoveDirection();
+        countdown -= Time.deltaTime;		//Atualizacao do tempo
 
         if (!dir.Equals(Vector2.zero))
             MoveShip(dir);
 
+        if (vidaSwitch)						//Destroi mensagem
+            if (countdown <= 9.0f)
+            {
+                Destroy(lifeUPRunTime);
+                vidaSwitch = false;
+            }
+
+        if (countdown <= 0.0f)				//quando chegar em zero ele ganha a vida
+        {
+            AddLive();
+            countdown = 10.0f;
+            vidaSwitch = true;
+        }
    
         if (alive) {
             score += Time.deltaTime;
@@ -150,6 +170,9 @@ public class PlayerControl : ShipScript {
     {
         if (gameObject.GetComponent<PlayerControl>().hitPoints < 10)
         {
+            
+            lifeUPRunTime = (GameObject)Instantiate(lifeUP, new Vector3(this.transform.position.x, this.transform.position.y+SHIP_WIDTH, this.transform.position.z-1), Quaternion.identity); //Imagem de LIFEUP
+            lifeUPRunTime.transform.localScale = new Vector3(0.1f, 0.1f, 1);             //Tamanho da imagem de aumento de vida
             countLives[(int)gameObject.GetComponent<PlayerControl>().hitPoints].SetActive(true);
             gameObject.GetComponent<PlayerControl>().hitPoints++;
         }
