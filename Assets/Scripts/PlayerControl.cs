@@ -16,6 +16,7 @@ public class PlayerControl : ShipScript {
     private Vector3 positionVidas;
     private float aux;
     private GameObject[] countLives = new GameObject[10];
+    private float countdown = 10.0f;        //Variavel para contagem de tempo para ganhar nova vida (decidir um tempo bom para ganhar novas vidas)
     private Vector3 defaultAngle;
 
     public static readonly int maxLifes = 10;
@@ -61,10 +62,12 @@ public class PlayerControl : ShipScript {
 	void Update () {
         Vector2 dir;//dir.x between 0 and 1. Same for dir.y
         dir = InputControl.GetMoveDirection();
+        countdown -= Time.deltaTime;		//Atualizacao do tempo
 
         if (!dir.Equals(Vector2.zero))
             MoveShip(dir);
 
+        if (countdown <= 0.0f)				//quando chegar em zero ele ganha a vida
         {
             AddLive();
             countdown = 10.0f;
