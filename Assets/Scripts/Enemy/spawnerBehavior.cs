@@ -60,6 +60,8 @@ public class spawnerBehavior : Utilities {
 
 					//Give to enemy a reference to the palyer
 					enemy.GetComponent<TarkelBehaviour>().player = player.transform;
+					enemy.GetComponent<EnemyControl>().player = player.transform;
+
 					//put the enemy in a random position above the screen
 					enemy.GetComponent<Transform> ().position = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()),
 						GetMaxVerticalPosition () + 1, 0);
