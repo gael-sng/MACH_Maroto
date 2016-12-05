@@ -25,6 +25,10 @@ public abstract class Shooting : MonoBehaviour {
     protected abstract void Shoot();
 
     protected void ShootFromBarrel(GameObject barrel) {
+		if (bulletPrefab == null){
+			print ("NULL BULLET PREFAB");
+			return;
+		}
         Quaternion bulletRotation = Quaternion.Euler(Vector3.forward*barrel.transform.eulerAngles.z);
         GameObject bulletInst = (GameObject) Instantiate(bulletPrefab, barrel.transform.position, bulletRotation);
 

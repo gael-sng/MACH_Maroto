@@ -55,11 +55,11 @@ public class spawnerBehavior : Utilities {
 
 			case 3:
 				//print ("case 3");
-				if (enemy_2) {
-					enemy = Instantiate (enemy_2);
+				if (enemy_3) {
+					enemy = Instantiate (enemy_3);
 
 					//Give to enemy a reference to the palyer
-					enemy.GetComponent<CampelBehaviour>().player = player.transform;
+					enemy.GetComponent<TarkelBehaviour>().player = player.transform;
 					//put the enemy in a random position above the screen
 					enemy.GetComponent<Transform> ().position = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()),
 						GetMaxVerticalPosition () + 1, 0);

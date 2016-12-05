@@ -9,7 +9,7 @@ public class PlayerControl : ShipScript {
     
     private Camera mainCamera;
     private float score;
-    private bool alive, isInvunerable;
+	private bool alive;//, isInvunerable;
     private float InvunerabilityCounter;
     public GameObject life;
 	public GameObject lifeaBackground;
@@ -105,14 +105,14 @@ public class PlayerControl : ShipScript {
     IEnumerator InvunerabilityCoroutine() {
         if (InvunerabilityCounter >= Invunerability_Charge_Time) {
             //If invunerability is charged, disables collider, plays animation, and resets invunerability counter
-            isInvunerable = true;
+            //isInvunerable = true;
             Collider collider = GetComponent<Collider>();
             collider.enabled = false;
             InvunerabilityCounter = 0.0f;
             yield return new WaitForSeconds(Invunerability_Time);
             //After a few seconds, reset the colliders
             collider.enabled = true;
-            isInvunerable = false;
+            //isInvunerable = false;
         }
     }
     
@@ -158,7 +158,12 @@ public class PlayerControl : ShipScript {
         if (GetComponent<Collider>().enabled)
         {
             transform.eulerAngles = defaultAngle + new Vector3(-dir.y * xFlipCoef, -dir.x * yFlipCoef, 0.0f);
-            transform.GetChild(0).rotation = barrelDefault;
+			//macaquisse que o cristiano não gostou, mudar depois
+			transform.GetChild(0).rotation = barrelDefault;
+			transform.GetChild(1).rotation = barrelDefault;
+			transform.GetChild(2).rotation = barrelDefault;
+			transform.GetChild(3).rotation = barrelDefault;
+            transform.GetChild(4).rotation = barrelDefault;
         }
             
 

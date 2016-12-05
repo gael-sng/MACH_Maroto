@@ -47,8 +47,8 @@ public class CampelBehaviour : ShipScript {
 			if (targetDir.x < 0)
 				angle += 180;
 			transform.rotation = Quaternion.Euler (0, 0, angle - 90.0f);
-			ClearConsole ();
-			print ("angle = " + angle + " x = " + targetDir.x + " y = " + targetDir.y + " z = " + targetDir.z);
+			//ClearConsole ();
+			//print ("angle = " + angle + " x = " + targetDir.x + " y = " + targetDir.y + " z = " + targetDir.z);
 		}
 	}
 
