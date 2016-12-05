@@ -23,6 +23,7 @@ public class spawnerBehavior : Utilities {
 	// Update is called once per frame
 	void Update () {
 		if (player == null) return;
+		Vector3 newPosition = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()), GetMaxVerticalPosition () + 0.5f, 0);
 		if (timer >= spawnDelay) {
 			timer = 0;
 			GameObject enemy;
@@ -35,8 +36,7 @@ public class spawnerBehavior : Utilities {
 					//Give to enemy a reference to the palyer
 					enemy.GetComponent<EnemyControl>().player = player.transform;
 					//put the enemy in a random position above the screen
-					enemy.GetComponent<Transform> ().position = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()),
-																				GetMaxVerticalPosition () + 1, 0);
+					enemy.GetComponent<Transform> ().position = newPosition;
 				}
 				break;
 
@@ -46,10 +46,9 @@ public class spawnerBehavior : Utilities {
 					enemy = Instantiate (enemy_2);
 
 					//Give to enemy a reference to the palyer
-					enemy.GetComponent<CampelBehaviour>().player = player.transform;
+					enemy.GetComponent<CampelBehaviour> ().player = player.transform;
 					//put the enemy in a random position above the screen
-					enemy.GetComponent<Transform> ().position = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()),
-						GetMaxVerticalPosition () + 1, 0);
+					enemy.GetComponent<Transform> ().position = newPosition;
 				}
 				break;
 
@@ -59,12 +58,11 @@ public class spawnerBehavior : Utilities {
 					enemy = Instantiate (enemy_3);
 
 					//Give to enemy a reference to the palyer
-					enemy.GetComponent<TarkelBehaviour>().player = player.transform;
+					enemy.GetComponent<TarkelBehaviour>().player = player;
 					enemy.GetComponent<EnemyControl>().player = player.transform;
 
 					//put the enemy in a random position above the screen
-					enemy.GetComponent<Transform> ().position = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()),
-						GetMaxVerticalPosition () + 1, 0);
+					enemy.GetComponent<Transform> ().position = newPosition;
 				}
 				break;
 
@@ -76,8 +74,7 @@ public class spawnerBehavior : Utilities {
 					//Give to enemy a reference to the palyer
 					enemy.GetComponent<EnemyControl>().player = player.transform;
 					//put the enemy in a random position above the screen
-					enemy.GetComponent<Transform> ().position = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()),
-						GetMaxVerticalPosition () + 1, 0);
+					enemy.GetComponent<Transform> ().position = newPosition;
 				}
 				break;
 

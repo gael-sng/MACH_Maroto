@@ -16,15 +16,11 @@ public class PlayerControl : ShipScript {
     private Vector3 positionVidas;
     private float aux;
     private GameObject[] countLives = new GameObject[10];
-//<<<<<<< HEAD
-
     private Quaternion barrelDefault;
-//=======
     private float countdown = 10.0f;        //Variavel para contagem de tempo para ganhar nova vida (decidir um tempo bom para ganhar novas vidas)
     public GameObject lifeUP;               //GameObject para imagem de LifeUP
     private bool vidaSwitch = false;
     private GameObject lifeUPRunTime;
-//>>>>>>> origin/jorginho
     private Vector3 defaultAngle;
     
 
