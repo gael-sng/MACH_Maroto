@@ -6,27 +6,25 @@ public class PlayerControl : ShipScript {
     
     [Header("Max vertical position between 0(bot) and 1(top)")]
     public float maxVerticalPosition;
-    
+    [Header("Life Sprite Prefab")]
+    public GameObject life;
+    [Header("Life Background Prefab")]
+    public GameObject lifeaBackground;
+    [Header("New Life Prefab")]
+    public GameObject lifeUP;               //GameObject para imagem de LifeUP
+
     private Camera mainCamera;
     private float score;
-	private bool alive;//, isInvunerable;
+    private bool alive;//, isInvunerable;
     private float InvunerabilityCounter;
-    public GameObject life;
-	public GameObject lifeaBackground;
     private Vector3 positionVidas;
     private float aux;
     private GameObject[] countLives = new GameObject[10];
-//<<<<<<< HEAD
-
-    private Quaternion barrelDefault;
-//=======
     private float countdown = 10.0f;        //Variavel para contagem de tempo para ganhar nova vida (decidir um tempo bom para ganhar novas vidas)
-    public GameObject lifeUP;               //GameObject para imagem de LifeUP
     private bool vidaSwitch = false;
     private GameObject lifeUPRunTime;
-//>>>>>>> origin/jorginho
     private Vector3 defaultAngle;
-    
+    private Quaternion barrelDefaultAngle;
 
     public static readonly int maxLifes = 10;
     public static readonly float Invunerability_Time = 1.0f;
@@ -35,11 +33,9 @@ public class PlayerControl : ShipScript {
     public static readonly float SHIP_WIDTH = 0.7f;
     public static readonly float SHIP_HEIGHT = 0.7f;
 
-   
-
     void Start() {
         defaultAngle = transform.eulerAngles;
-        barrelDefault = transform.GetChild(0).rotation;
+        barrelDefaultAngle = GetComponent<PlayerShooting>().GetBarrels()[0].transform.rotation;
         mainCamera = Camera.main;
         score = 0;
         alive = true;
@@ -89,7 +85,12 @@ public class PlayerControl : ShipScript {
             countdown = 10.0f;
             vidaSwitch = true;
         }
-   
+
+        //Rotaciona os barrels
+        foreach (GameObject b in GetComponent<PlayerShooting>().GetBarrels()) {
+            b.transform.rotation = barrelDefaultAngle;
+        }
+
         if (alive) {
             score += Time.deltaTime;
             InvunerabilityCounter = Mathf.Clamp(InvunerabilityCounter + Time.deltaTime, 0, Invunerability_Charge_Time);
@@ -158,12 +159,7 @@ public class PlayerControl : ShipScript {
         if (GetComponent<Collider>().enabled)
         {
             transform.eulerAngles = defaultAngle + new Vector3(-dir.y * xFlipCoef, -dir.x * yFlipCoef, 0.0f);
-			//macaquisse que o cristiano não gostou, mudar depois
-			transform.GetChild(0).rotation = barrelDefault;
-			transform.GetChild(1).rotation = barrelDefault;
-			transform.GetChild(2).rotation = barrelDefault;
-			transform.GetChild(3).rotation = barrelDefault;
-            transform.GetChild(4).rotation = barrelDefault;
+
         }
             
 
@@ -176,8 +172,9 @@ public class PlayerControl : ShipScript {
         if (gameObject.GetComponent<PlayerControl>().hitPoints < 10)
         {
             
-            lifeUPRunTime = (GameObject)Instantiate(lifeUP, new Vector3(this.transform.position.x, this.transform.position.y+SHIP_WIDTH, this.transform.position.z-1), Quaternion.identity); //Imagem de LIFEUP
+            lifeUPRunTime = (GameObject)Instantiate(lifeUP, new Vector3(transform.position.x+ SHIP_WIDTH, transform.position.y+SHIP_WIDTH, this.transform.position.z-1), Quaternion.identity); //Imagem de LIFEUP
             lifeUPRunTime.transform.localScale = new Vector3(0.1f, 0.1f, 1);             //Tamanho da imagem de aumento de vida
+            lifeUPRunTime.transform.SetParent(transform);
             countLives[(int)gameObject.GetComponent<PlayerControl>().hitPoints].SetActive(true);
             gameObject.GetComponent<PlayerControl>().hitPoints++;
         }
