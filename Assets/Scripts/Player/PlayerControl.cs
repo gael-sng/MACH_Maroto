@@ -35,7 +35,14 @@ public class PlayerControl : ShipScript {
 	private bool flag;//gambiarra para funcionar, by cartaz blame him
 
     void Start() {
-		flag = true;//gambiarra
+
+        //Calibrate
+#if UNITY_EDITOR
+#elif UNITY_ANDROID
+        InputControl.calibrateAccelerometer();
+#endif
+
+        flag = true;//gambiarra
         defaultAngle = transform.eulerAngles;
 		//barrelDefaultAngle = null;// GetComponent<PlayerShooting>().GetBarrels()[0].transform.rotation;
         mainCamera = Camera.main;
@@ -63,13 +70,12 @@ public class PlayerControl : ShipScript {
             countLives[i].SetActive(true);
 
 
-
     }
 	
 	// Update is called once per frame
 	void Update () {
-		//gambiarra apra funcioanr
-		if (flag) {//gambiarra
+        //gambiarra apra funcioanr
+        if (flag) {//gambiarra
 			barrelDefaultAngle = GetComponent<PlayerShooting> ().GetBarrels () [0].transform.rotation;//gambiarra
 			flag = false;//gambiarra
 		}//gambiarra
@@ -113,16 +119,37 @@ public class PlayerControl : ShipScript {
 
     
     void OnTriggerEnter(Collider col) {
+        int damage;
         if (col.gameObject.tag == "EnemyBullet") {
-            TakeDamage(col.gameObject.GetComponent<bulletScript>().GetDamage());
+            damage = (int)col.gameObject.GetComponent<bulletScript>().GetDamage();
+            while (damage > 0)
+            {
+                TakeDamage(1);
+                RemoveLive();
+                damage--;
+            }
             col.gameObject.SendMessage("Destroy");
-            RemoveLive();
+            
+            
         } else if (col.gameObject.tag == "Enemy") {
             TakeDamage(hitPoints);
             RemoveLive();
         }else if (col.gameObject.tag == "UP") {
             GetComponent<PlayerShooting>().UpgradeBullet();
             Destroy(col.gameObject);
+        }else if(col.gameObject.tag == "Missile")
+        {
+            damage = (int)col.gameObject.GetComponent<MissileBehaviour>().GetDamage();
+            while (damage > 0)
+            {
+                TakeDamage(1);
+                RemoveLive();   
+                damage--;
+            }
+          
+            col.gameObject.SendMessage("Destroy");
+           
+
         }
     }
     
