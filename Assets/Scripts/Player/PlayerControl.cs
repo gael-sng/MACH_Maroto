@@ -36,11 +36,6 @@ public class PlayerControl : ShipScript {
 
     void Start() {
 
-        //Calibrate
-#if UNITY_EDITOR
-#elif UNITY_ANDROID
-        InputControl.calibrateAccelerometer();
-#endif
 
         flag = true;//gambiarra
         defaultAngle = transform.eulerAngles;
