@@ -63,13 +63,12 @@ public class PlayerControl : ShipScript {
             countLives[i].SetActive(true);
 
 
-
     }
 	
 	// Update is called once per frame
 	void Update () {
-		//gambiarra apra funcioanr
-		if (flag) {//gambiarra
+        //gambiarra apra funcioanr
+        if (flag) {//gambiarra
 			barrelDefaultAngle = GetComponent<PlayerShooting> ().GetBarrels () [0].transform.rotation;//gambiarra
 			flag = false;//gambiarra
 		}//gambiarra
