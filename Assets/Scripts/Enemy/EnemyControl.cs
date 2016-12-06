@@ -81,8 +81,10 @@ public class EnemyControl: ShipScript {
         if (col.gameObject.tag == "PlayerBullet") {
             TakeDamage(col.gameObject.GetComponent<bulletScript>().GetDamage());
             col.gameObject.SendMessage("Destroy");
+            GameObject.Find("player").GetComponent<PlayerControl>().KillConfirmed();
         } else if (col.gameObject.tag == "Player") {
             TakeDamage(hitPoints);
+            GameObject.Find("player").GetComponent<PlayerControl>().KillConfirmed();
         }
     }
 

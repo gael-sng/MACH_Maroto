@@ -72,7 +72,7 @@ public class CampelBehaviour : ShipScript {
 	}
 
 	void OnTriggerEnter (Collider col) {
-		print ("ACERTO MISERAVI");
+
 		if (col.gameObject.tag == "PlayerBullet") {
 			TakeDamage(col.gameObject.GetComponent<bulletScript>().GetDamage());
 			col.gameObject.SendMessage("Destroy");

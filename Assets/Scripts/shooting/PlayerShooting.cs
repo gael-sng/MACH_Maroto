@@ -18,21 +18,21 @@ public class PlayerShooting : Shooting {
         [Header("Bullet Prefab")]
         public GameObject bulletPrefab;
     }
-    private int actualBulletIdx = 0;
+    private int actualBulletIdx;
     private GameObject[] barrels;
-    
+    private Quaternion barrelDefaultAngle;
+
     private enum barrelIDs { LEFT_BARREL, MIDDLE_LEFT_BARREL, MIDDLE_BARREL, MIDDLE_RIGHT_BARREL, RIGHT_BARREL, barrelCount };
 
     // Use this for initialization
     void Start() {
-        SetBulletType(actualBulletIdx);
+        SetBulletType(0);
 
         barrels = new GameObject[(int)barrelIDs.barrelCount];
         int count = 0;
         foreach (Transform child in transform)
             if (child.tag == "Barrel")
                 barrels[count++] = child.gameObject;
-        
     }
 
     protected override void Shoot() {
@@ -82,5 +82,9 @@ public class PlayerShooting : Shooting {
         } else {
             //Already has the last bullet type
         }
+    }
+
+    public GameObject[] GetBarrels() {
+        return barrels;
     }
 }
