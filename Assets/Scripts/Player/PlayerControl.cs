@@ -35,7 +35,14 @@ public class PlayerControl : ShipScript {
 	private bool flag;//gambiarra para funcionar, by cartaz blame him
 
     void Start() {
-		flag = true;//gambiarra
+
+        //Calibrate
+#if UNITY_EDITOR
+#elif UNITY_ANDROID
+        InputControl.calibrateAccelerometer();
+#endif
+
+        flag = true;//gambiarra
         defaultAngle = transform.eulerAngles;
 		//barrelDefaultAngle = null;// GetComponent<PlayerShooting>().GetBarrels()[0].transform.rotation;
         mainCamera = Camera.main;

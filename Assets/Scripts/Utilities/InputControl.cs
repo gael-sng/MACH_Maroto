@@ -13,6 +13,7 @@ public static class InputControl {
         return Input.GetKeyDown(KeyCode.Space);
     }
 #elif UNITY_ANDROID
+    
     public static void calibrateAccelerometer() {
         Vector3 wantedDeadZone = Input.acceleration;
         Quaternion rotateQuaternion = Quaternion.FromToRotation(new Vector3(0f, 0f, -1f), wantedDeadZone);
@@ -21,6 +22,7 @@ public static class InputControl {
         //get the inverse of the matrix
         calibrationMatrix = matrix.inverse;
     }
+
     public static Vector3 GetMoveDirection() {
         return calibrationMatrix.MultiplyVector(Input.acceleration);
     }
