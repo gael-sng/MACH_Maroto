@@ -16,7 +16,6 @@ public class PlayerControl : ShipScript {
     private Camera mainCamera;
     private float score;
     private bool alive;//, isInvunerable;
-    private float InvunerabilityCounter;
     private Vector3 positionVidas;
     private float aux;
     private GameObject[] countLives = new GameObject[10];
@@ -25,10 +24,10 @@ public class PlayerControl : ShipScript {
     private GameObject lifeUPRunTime;
     private Vector3 defaultAngle;
     private Quaternion barrelDefaultAngle;
+    private float timeAlive;
+    private int killsCount;
 
     public static readonly int maxLifes = 10;
-    public static readonly float Invunerability_Time = 1.0f;
-    public static readonly float Invunerability_Charge_Time = 10.0f;
 
     public static readonly float SHIP_WIDTH = 0.7f;
     public static readonly float SHIP_HEIGHT = 0.7f;
@@ -39,12 +38,13 @@ public class PlayerControl : ShipScript {
         mainCamera = Camera.main;
         score = 0;
         alive = true;
-        InvunerabilityCounter = 0.0f;
+        timeAlive = 0.0f;
+        killsCount = 0;
 
         aux = (GetMaxHorizontalPosition() - GetMinHorizontalPosition()) / 12.0f;
 		lifeaBackground.transform.localScale = new Vector3(GetMaxHorizontalPosition() - GetMinHorizontalPosition(), aux * 0.5f, 1);
         positionVidas = new Vector3(aux * 1.5f + GetMinHorizontalPosition(), -0.5f * aux + GetMaxVerticalPosition(), -1);
-		print ("x inicial = " + ( GetMinHorizontalPosition()));
+
         for (int i = 0; i < maxLifes; i++)
         {
             countLives[i] = (GameObject)Instantiate(life, positionVidas, Quaternion.identity);
@@ -93,29 +93,15 @@ public class PlayerControl : ShipScript {
 
         if (alive) {
             score += Time.deltaTime;
-            InvunerabilityCounter = Mathf.Clamp(InvunerabilityCounter + Time.deltaTime, 0, Invunerability_Charge_Time);
         }
 
-        if (InputControl.GetInvunerabilityUsed())
-            StartCoroutine(InvunerabilityCoroutine());
+        timeAlive += Time.deltaTime;
 
         //For testing:
         //GameObject.Find("Condition").GetComponent<TextMesh>().text = "Scr:" + score.ToString("F1") + "/Highscr:" + PersistentData.GetHighscore().ToString("F1") + "/Inv:" + (InvunerabilityCounter>=Invunerability_Charge_Time);
     }
 
-    IEnumerator InvunerabilityCoroutine() {
-        if (InvunerabilityCounter >= Invunerability_Charge_Time) {
-            //If invunerability is charged, disables collider, plays animation, and resets invunerability counter
-            //isInvunerable = true;
-            Collider collider = GetComponent<Collider>();
-            collider.enabled = false;
-            InvunerabilityCounter = 0.0f;
-            yield return new WaitForSeconds(Invunerability_Time);
-            //After a few seconds, reset the colliders
-            collider.enabled = true;
-            //isInvunerable = false;
-        }
-    }
+
     
     void OnTriggerEnter(Collider col) {
         if (col.gameObject.tag == "EnemyBullet") {
@@ -139,11 +125,11 @@ public class PlayerControl : ShipScript {
         //After destroing, I should add a piece of code to kill player:
 
         alive = false;
-        
-        if (score > PersistentData.GetHighscore()) {
-            //Beats highscore
-            PersistentData.SetHighscore(score);
-        }
+
+
+        float matchScore = ScoreSystem.ReceiveMatchResults(timeAlive, killsCount);
+        print("THIS MATCH SCORE WAS: " + matchScore);
+
         //Should call a coroutine to wait a few secs, and then shows pop-up menu to "Restart Game"
         //For now, it just reinitializes...
         SceneManager.LoadScene("Game Over");
@@ -173,7 +159,7 @@ public class PlayerControl : ShipScript {
         {
             
             lifeUPRunTime = (GameObject)Instantiate(lifeUP, new Vector3(transform.position.x+ SHIP_WIDTH, transform.position.y+SHIP_WIDTH, this.transform.position.z-1), Quaternion.identity); //Imagem de LIFEUP
-            lifeUPRunTime.transform.localScale = new Vector3(0.1f, 0.1f, 1);             //Tamanho da imagem de aumento de vida
+            lifeUPRunTime.transform.localScale = new Vector3(0.05f, 0.05f, 1);             //Tamanho da imagem de aumento de vida
             lifeUPRunTime.transform.SetParent(transform);
             countLives[(int)gameObject.GetComponent<PlayerControl>().hitPoints].SetActive(true);
             gameObject.GetComponent<PlayerControl>().hitPoints++;
@@ -191,9 +177,15 @@ public class PlayerControl : ShipScript {
         return mainCamera.orthographicSize * Screen.width / Screen.height - SHIP_WIDTH / 2.0f;
     }
     public float GetPlayerMinVerticalPosition() {
-        return SHIP_HEIGHT / 2.0f - mainCamera.orthographicSize;
+        return SHIP_HEIGHT / 2.0f + (Camera.main.ScreenToWorldPoint(Vector2.up * (GetComponent<InvunerabilityControl>().GetBarHeight())).y);
     }
 	public float GetPlayerMaxVerticalPosition() {
         return (2*maxVerticalPosition-1) * mainCamera.orthographicSize;
+    }
+    public bool isAlive() {
+        return alive;
+    }
+    public void KillConfirmed() {
+        killsCount++;
     }
 }
