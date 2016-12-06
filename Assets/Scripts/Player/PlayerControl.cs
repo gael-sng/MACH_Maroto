@@ -53,14 +53,14 @@ public class PlayerControl : ShipScript {
 
         aux = (GetMaxHorizontalPosition() - GetMinHorizontalPosition()) / 12.0f;
 		lifeaBackground.transform.localScale = new Vector3(GetMaxHorizontalPosition() - GetMinHorizontalPosition(), aux * 0.5f, 1);
-        positionVidas = new Vector3(aux * 1.5f + GetMinHorizontalPosition(), -0.5f * aux + GetMaxVerticalPosition(), -1);
+        positionVidas = new Vector3(aux/2.0f * 1.5f + GetMinHorizontalPosition(), -0.5f * aux + GetMaxVerticalPosition(), -1);
 
         for (int i = 0; i < maxLifes; i++)
         {
             countLives[i] = (GameObject)Instantiate(life, positionVidas, Quaternion.identity);
             countLives[i].SetActive(false);
 			if (i == (int)(maxLifes / 2)) Instantiate (lifeaBackground, positionVidas + Vector3.forward * 0.5f, Quaternion.identity);
-            positionVidas = positionVidas + Vector3.right * aux;
+            positionVidas = positionVidas + Vector3.right * aux/2.0f;
         }
 
         if (gameObject.GetComponent<PlayerControl>().hitPoints > maxLifes)
@@ -224,4 +224,15 @@ public class PlayerControl : ShipScript {
     public void KillConfirmed() {
         killsCount++;
     }
+
+    public int getKillsCount()
+    {
+        return killsCount;
+    }
+
+    public float getTimeAlive()
+    {
+        return timeAlive;
+    }
+
 }
