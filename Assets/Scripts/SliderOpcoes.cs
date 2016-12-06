@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SliderOpcoes : MonoBehaviour {
 
@@ -8,9 +9,8 @@ public class SliderOpcoes : MonoBehaviour {
     public Slider calibratorSlider;
 
     // Use this for initialization
-    void Start ()
-    {
-
+    public void LoadMenu() {
+        SceneManager.LoadScene("Menu");
     }
 	
 	// Update is called once per frame

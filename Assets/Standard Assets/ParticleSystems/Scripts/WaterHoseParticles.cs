@@ -22,7 +22,7 @@ namespace UnityStandardAssets.Effects
 
         private void OnParticleCollision(GameObject other)
         {
-            int numCollisionEvents = m_ParticleSystem.GetCollisionEvents(other, m_CollisionEvents);
+            int numCollisionEvents = m_ParticleSystem.GetCollisionEvents(other, m_CollisionEvents.ToArray());
             int i = 0;
 
             while (i < numCollisionEvents)
