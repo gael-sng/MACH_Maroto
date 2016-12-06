@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public static class ScoreSystem {
 
+    private static float point;
+
     private static readonly float TIME_COEFICIENT = 1 / 60.0f;
     private static readonly float KILLS_COEFICIENT = 1 / 20.0f;
     private static readonly float EXPECTED_TIME = 60.0f; //60 secs
@@ -111,9 +113,15 @@ public static class ScoreSystem {
         return newQueue;
     }
 
+    public static float getPoint()
+    {
+        return point;
+    }
+
     //Receives a new match result
     public static float ReceiveMatchResults(float time, int kills) {
-        return CalculateMatchScore(time, kills);
+        point = CalculateMatchScore(time, kills);
+        return point;
     }
 
     //Returns the user Rank Coeficient
@@ -125,4 +133,10 @@ public static class ScoreSystem {
     public static float GetHighscore() {
         return PersistentData.GetHighscore();
     }
+
+    public static float getMasterVolume()
+    {
+        return PlayerPrefs.GetFloat("master_volume");
+    }
+
 }

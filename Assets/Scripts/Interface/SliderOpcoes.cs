@@ -9,6 +9,12 @@ public class SliderOpcoes : MonoBehaviour {
     public Slider calibratorSlider;
 
     // Use this for initialization
+    public void Start()
+    {
+        volumeSlider.value = getMasterVolume();
+        calibratorSlider.value = getCalibrator();
+    }
+
     public void LoadMenu() {
         SceneManager.LoadScene("Menu");
     }
