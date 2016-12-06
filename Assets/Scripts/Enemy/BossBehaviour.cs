@@ -18,6 +18,8 @@ public class BossBehaviour : MonoBehaviour {
 	public GameObject MegaBullet;
 	private GameObject saveMB;
 
+	public EnemyControl myControl;
+
 	private float timer;
 	private float wait;
 	private bool isShooting;

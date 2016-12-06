@@ -11,7 +11,8 @@ public class ButtonTradeScene : MonoBehaviour {
         Menu = 1,
         Game = 2,
         Creditos = 3,
-        Opcoes = 4
+        Opcoes = 4,
+        DeOpcaoParaMenu = 5
     }
     public opcao cena;
 
@@ -32,6 +33,10 @@ public class ButtonTradeScene : MonoBehaviour {
         else if ((int)cena == 4)
         {
             btnMenu.onClick.AddListener(LoadSceneOpcoes);
+        }
+        else if ((int)cena == 5)
+        {
+            btnMenu.onClick.AddListener(LoadSceneMenu);
         }
 
     }

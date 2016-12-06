@@ -1,0 +1,113 @@
+*   [33mf3d1f88[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mcartaz[m[33m, [m[1;31morigin/cartaz[m[33m)[m Merge remote-tracking branch 'origin/master' into cartaz
+[31m|[m[32m\[m  
+[31m|[m * [33m929a660[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/Elisa[m[33m)[m No instakill missiles and fixed player taking damage
+[31m|[m * [33me0f3fe0[m Com movimentacao mobile funcionando2
+[31m|[m * [33me87d119[m Com movimentação mobile funcionando
+[31m|[m * [33m5d81ac8[m Changed missile behaviour
+[31m|[m * [33m00485c8[m Changed up size
+[31m|[m * [33m5b271a7[m Com as paradas q tinham sido perdidas
+* [32m|[m [33m61552f4[m[33m ([m[1;32mmaster[m[33m)[m Modifiquei os prefabs dos inimigos dando nome a eles e testei amudança de msucia do boss
+[32m|[m[32m/[m  
+*   [33mc958539[m Merge remote-tracking branch 'origin/master' into cartaz
+[33m|[m[34m\[m  
+[33m|[m * [33m57fab3a[m Revert "Mais paradas"
+[33m|[m * [33m941fffb[m Revert "Commitado (pode ter erros)"
+[33m|[m * [33ma610bc2[m Commitado (pode ter erros)
+* [34m|[m [33m7d90a77[m Added musicChange scrpit
+* [34m|[m [33m7a8ff09[m Playing around with boss theme
+* [34m|[m [33m1227a54[m Comecei a fazer o boss concertei um bug do codigo do playercontroler usando gambiarra.. so pra funcionar, e dei emrge em tudo antes
+* [34m|[m   [33m8e1ea32[m Merge branch 'master do cristiano' into cartaz
+[35m|[m[34m\[m [34m\[m  
+[35m|[m [34m|[m[34m/[m  
+[35m|[m * [33me321a89[m Mais paradas
+[35m|[m * [33m960ef34[m Varias mudanças
+[35m|[m * [33mfe5e67f[m Com fogo atras do player, e com a parada de vida seguindo o jogador
+* [36m|[m   [33m63c92b7[m Merge remote-tracking branch 'origin/Elisa' into cartaz
+[1;31m|[m[1;32m\[m [36m\[m  
+[1;31m|[m * [36m|[m [33m9688164[m Added music to menus and tweeked background color script
+* [1;32m|[m [36m|[m [33m4da103f[m tarkel mais bem feito, com lança missel, spawner spawnando mais em baixo
+[1;32m|[m[1;32m/[m [36m/[m  
+* [36m|[m [33mbd7283e[m modifiquei o quad e o volume da bala
+[36m|[m[36m/[m  
+* [33m19944b3[m Fixed arrangement of changing-color background
+*   [33m013e54f[m Merge remote-tracking branch 'origin/Elisa' into cartaz
+[1;33m|[m[1;34m\[m  
+[1;33m|[m * [33m5f17d73[m Background color script + switched bullet sound
+* [1;34m|[m [33m85bef2b[m terminei d eimplementar o tarkel, e organizei melhor as apstas do projeto...denovo
+* [1;34m|[m   [33mdd7b031[m Merge remote-tracking branch 'origin/master' into cartaz
+[1;35m|[m[1;36m\[m [1;34m\[m  
+[1;35m|[m * [1;34m|[m [33m58ac06f[m Com EnemyShooting funcionando(?)
+* [1;36m|[m [1;34m|[m   [33m3453ce9[m Merge remote-tracking branch 'origin/jorginho' into cartaz
+[31m|[m[32m\[m [1;36m\[m [1;34m\[m  
+[31m|[m * [1;36m|[m [1;34m|[m [33m0d7a0e9[m[33m ([m[1;31morigin/jorginho[m[33m)[m Aparecendo msg LifeUP
+[31m|[m * [1;36m|[m [1;34m|[m [33mb8c2cd8[m Script de aumento de vida comentado
+[31m|[m * [1;36m|[m [1;34m|[m [33mab5e6f8[m Aumento de vida de 10 em 10 seg, e mudanca do nome do menu
+* [32m|[m [1;36m|[m [1;34m|[m   [33m41bd4e0[m Merge remote-tracking branch 'origin/master' into cartaz
+[33m|[m[1;36m\[m [32m\[m [1;36m\[m [1;34m\[m  
+[33m|[m [1;36m|[m [32m|[m[1;36m/[m [1;34m/[m  
+[33m|[m [1;36m|[m[1;36m/[m[32m|[m [1;34m|[m   
+[33m|[m * [32m|[m [1;34m|[m [33m78c65be[m Commit com as parada de tiro novas
+[33m|[m [1;34m|[m [32m|[m[1;34m/[m  
+[33m|[m [1;34m|[m[1;34m/[m[32m|[m   
+* [1;34m|[m [32m|[m [33m3ed5ccb[m implementei o campel e adicionei algumas utilidades
+* [1;34m|[m [32m|[m   [33m7d2a32d[m Merge remote-tracking branch 'origin/master' into cartaz
+[35m|[m[1;34m\[m [1;34m\[m [32m\[m  
+[35m|[m [1;34m|[m[1;34m/[m [32m/[m  
+[35m|[m * [32m|[m [33m8ed746a[m Ships now lean to the side
+[35m|[m [32m|[m[32m/[m  
+[35m|[m * [33m99906de[m cleaned up playerControl
+* [36m|[m [33mc7c9196[m pequenas alteraçoes no prefab do lifeBackround, destroyZone e PlayerLife
+[36m|[m[36m/[m  
+* [33mf0c28d9[m Organizei o projeto e seu prefabs (em sua maioria), modifiquem apartir deste commit
+* [33md2adbc0[m organizando as apstas e os prefabs
+*   [33mb3ba02c[m Merge branch 'master' into cartaz, eu criei alguns backups dos meus prefabs que poderiam ser perdidos
+[1;31m|[m[1;32m\[m  
+[1;31m|[m * [33m260ddd2[m alterei nome de arquivos para nao dar conflito no merge
+[1;31m|[m * [33m0e8c69b[m Interface pronta
+* [1;32m|[m   [33mabca1d1[m Merge branch 'Elisa' into cartaz
+[1;33m|[m[1;34m\[m [1;32m\[m  
+[1;33m|[m * [1;32m\[m   [33mc681980[m[33m ([m[1;32mElisa[m[33m)[m Merge branch 'master' into Elisa
+[1;33m|[m [1;35m|[m[1;32m\[m [1;32m\[m  
+[1;33m|[m [1;35m|[m [1;32m|[m[1;32m/[m  
+[1;33m|[m * [1;32m|[m [33mc30fab6[m Playing with sounds and music
+[1;33m|[m * [1;32m|[m   [33m0069dab[m merging with latest additions
+[1;33m|[m [31m|[m[32m\[m [1;32m\[m  
+[1;33m|[m * [32m|[m [1;32m|[m [33m78f389a[m Playing around with sounds
+* [32m|[m [32m|[m [1;32m|[m [33m7de2356[m comecei fazer o campel, mas nada relevante pronto
+[1;32m|[m [32m|[m[1;32m_[m[32m|[m[1;32m/[m  
+[1;32m|[m[1;32m/[m[32m|[m [32m|[m   
+* [32m|[m [32m|[m [33m94d1efe[m[33m ([m[1;33mtag: DemoWithRelease[m[33m)[m agora adicionei a pasta Release para o git não ignorar mais
+[32m|[m [32m|[m[32m/[m  
+[32m|[m[32m/[m[32m|[m   
+* [32m|[m [33mef8b738[m[33m ([m[1;33mtag: Demo[m[33m)[m adicionei a documentação e fiz um segundo build, demowindows 0.2
+* [32m|[m [33m4f18df0[m mudei os prefabs das balas agora tem a bala do player(verde) e a bala do inimigos(vermelha), os inimigos consegue sair do cenario e são destruidos em baixo do cenario, e concertei o bug da nave nao explodir ao bater na nave inimiga no jogo anterior
+* [32m|[m [33mb8b010a[m posicione i a vida mais aciam na tela, coloquei back ground na vida, conceitei os collider das balas e do palyer, tirei o mesh do player da hierarquia e coloquei direto no player
+[32m|[m[32m/[m  
+* [33m981b23a[m Fixed hearts scaling
+*   [33mb4c1943[m Merge remote-tracking branch 'origin/cartaz' into cartaz
+[33m|[m[34m\[m  
+[33m|[m * [33m8a1b709[m Concertei a posição das vidas mudando a função de posição maxima horizontal/vertical do player controler, e fazendo a herança com a utilitis
+[33m|[m * [33m101af97[m[33m ([m[1;31morigin/DeElisaParaJorge[m[33m)[m Vidas do personagem
+[33m|[m * [33m83bb9c3[m Fixed background and explosions
+* [34m|[m [33m642c2ce[m Added author.txt and readme.txt
+[34m|[m[34m/[m  
+* [33m081c01f[m commitei pq a elisa pedir, mas eu mergeei o critiano e fiz altas altaraçoes
+* [33mef23319[m mergeei o jorge com a minha branch
+*   [33m598e2e1[m Merge remote-tracking branch 'origin/Elisa' into cartaz
+[35m|[m[36m\[m  
+[35m|[m * [33me6c8ed7[m Cleaned up art folder
+* [36m|[m [33mf9a5837[m inimigo 1 pronto, com spawner, falta balancear e fazer variaçoes e sistema de pontos e o upgrade
+[36m|[m[36m/[m  
+* [33m8733096[m Added explosion prefab and enemy ships
+* [33m4d75a20[m Added player ship animation
+* [33ma2cbbe0[m Removed and added art
+* [33m6756d72[m added ship models and background images to assets
+[36m|[m * [33m5976a99[m[33m ([m[1;31morigin/Branch-do-cristiano[m[33m, [m[1;32mBranch-do-cristiano[m[33m)[m Nova parada
+[36m|[m * [33m59aa22f[m Commit
+[36m|[m[36m/[m  
+* [33m10265b8[m Second commit
+* [33m0eb8ac2[m First commit
+[1;31m|[m * [33m7fcd8d9[m[33m ([m[1;31morigin/Jorge[m[33m, [m[1;32mJorge[m[33m)[m Menu Final
+[1;31m|[m * [33mc4a5223[m Interface
+[1;31m|[m[1;31m/[m  
+* [33m1b8b5a2[m Initial commit
