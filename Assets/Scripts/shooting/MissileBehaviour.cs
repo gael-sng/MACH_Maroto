@@ -9,6 +9,7 @@ public class MissileBehaviour : Utilities {
 	private float speed;
 	private float rotationSpeed;
 	public GameObject explosion;
+    public float damage=2;
 	// Use this for initialization
 	void Start () {
 		speed = 0;
@@ -66,7 +67,11 @@ public class MissileBehaviour : Utilities {
 	void OnTriggerEnter(Collider col){
 		if (col.gameObject.tag == (target.tag + "Bullet")) {
 			TakeDamage (col.gameObject.GetComponent<bulletScript> ().GetDamage ());
-			Destroy (col.gameObject);
 		}
 	}
+
+    public float GetDamage()
+    {
+        return damage;
+    }
 }

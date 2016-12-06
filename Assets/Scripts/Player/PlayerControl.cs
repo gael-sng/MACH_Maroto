@@ -122,6 +122,11 @@ public class PlayerControl : ShipScript {
         }else if (col.gameObject.tag == "UP") {
             GetComponent<PlayerShooting>().UpgradeBullet();
             Destroy(col.gameObject);
+        }else if(col.gameObject.tag == "Missile")
+        {
+            TakeDamage(col.gameObject.GetComponent<MissileBehaviour>().GetDamage());
+            col.gameObject.SendMessage("Destroy");
+            RemoveLive();
         }
     }
     
