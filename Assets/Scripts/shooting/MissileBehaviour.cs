@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Behaviour for a missile projectile
 public class MissileBehaviour : Utilities {
 	public GameObject target;
 	public float hitPoints;

@@ -119,10 +119,18 @@ public class PlayerControl : ShipScript {
 
     
     void OnTriggerEnter(Collider col) {
+        int damage;
         if (col.gameObject.tag == "EnemyBullet") {
-            TakeDamage(col.gameObject.GetComponent<bulletScript>().GetDamage());
+            damage = (int)col.gameObject.GetComponent<bulletScript>().GetDamage();
+            while (damage > 0)
+            {
+                TakeDamage(1);
+                RemoveLive();
+                damage--;
+            }
             col.gameObject.SendMessage("Destroy");
-            RemoveLive();
+            
+            
         } else if (col.gameObject.tag == "Enemy") {
             TakeDamage(hitPoints);
             RemoveLive();
@@ -131,9 +139,17 @@ public class PlayerControl : ShipScript {
             Destroy(col.gameObject);
         }else if(col.gameObject.tag == "Missile")
         {
-            TakeDamage(col.gameObject.GetComponent<MissileBehaviour>().GetDamage());
+            damage = (int)col.gameObject.GetComponent<MissileBehaviour>().GetDamage();
+            while (damage > 0)
+            {
+                TakeDamage(1);
+                RemoveLive();   
+                damage--;
+            }
+          
             col.gameObject.SendMessage("Destroy");
-            RemoveLive();
+           
+
         }
     }
     
