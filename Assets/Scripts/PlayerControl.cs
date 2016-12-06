@@ -6,7 +6,6 @@ public class PlayerControl : ShipScript {
     
     [Header("Max vertical position between 0(bot) and 1(top)")]
     public float maxVerticalPosition;
-    
     private Camera mainCamera;
     private float score;
     private bool alive, isInvunerable;
