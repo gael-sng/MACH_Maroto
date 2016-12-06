@@ -18,7 +18,7 @@ public class PlayerShooting : Shooting {
         [Header("Bullet Prefab")]
         public GameObject bulletPrefab;
     }
-    private int actualBulletIdx = 0;
+    private int actualBulletIdx;
     private GameObject[] barrels;
     private Quaternion barrelDefaultAngle;
 
@@ -26,7 +26,7 @@ public class PlayerShooting : Shooting {
 
     // Use this for initialization
     void Start() {
-        SetBulletType(actualBulletIdx);
+        SetBulletType(0);
 
         barrels = new GameObject[(int)barrelIDs.barrelCount];
         int count = 0;
