@@ -32,9 +32,12 @@ public class PlayerControl : ShipScript {
     public static readonly float SHIP_WIDTH = 0.7f;
     public static readonly float SHIP_HEIGHT = 0.7f;
 
+	private bool flag;//gambiarra para funcionar, by cartaz blame him
+
     void Start() {
+		flag = true;//gambiarra
         defaultAngle = transform.eulerAngles;
-        barrelDefaultAngle = GetComponent<PlayerShooting>().GetBarrels()[0].transform.rotation;
+		//barrelDefaultAngle = null;// GetComponent<PlayerShooting>().GetBarrels()[0].transform.rotation;
         mainCamera = Camera.main;
         score = 0;
         alive = true;
@@ -65,6 +68,12 @@ public class PlayerControl : ShipScript {
 	
 	// Update is called once per frame
 	void Update () {
+		//gambiarra apra funcioanr
+		if (flag) {//gambiarra
+			barrelDefaultAngle = GetComponent<PlayerShooting> ().GetBarrels () [0].transform.rotation;//gambiarra
+			flag = false;//gambiarra
+		}//gambiarra
+
         Vector2 dir;//dir.x between 0 and 1. Same for dir.y
         dir = InputControl.GetMoveDirection();
         countdown -= Time.deltaTime;		//Atualizacao do tempo

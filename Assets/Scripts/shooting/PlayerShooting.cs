@@ -81,6 +81,8 @@ public class PlayerShooting : Shooting {
             SetBulletType(++actualBulletIdx);
         } else {
             //Already has the last bullet type
+			shootingInterval *= 0.9f;
+			bulletSpeed *= 1.1f;
         }
     }
 
