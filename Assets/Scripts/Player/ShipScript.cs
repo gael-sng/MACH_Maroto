@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Basic ship functionality: hitpoints, speed, explosion, movemente. Used by player and enemies
 public class ShipScript : Utilities {
 
     [Header("Hitpoints")]

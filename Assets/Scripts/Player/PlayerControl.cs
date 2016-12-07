@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+//Main script for player. Displays lives, keeps kills counts, game time etc
 public class PlayerControl : ShipScript {
     
     [Header("Max vertical position between 0(bot) and 1(top)")]
@@ -15,7 +16,7 @@ public class PlayerControl : ShipScript {
 
     private Camera mainCamera;
     private float score;
-    private bool alive;//, isInvunerable;
+    private bool alive;
     private Vector3 positionVidas;
     private float aux;
     private GameObject[] countLives = new GameObject[10];
@@ -36,20 +37,22 @@ public class PlayerControl : ShipScript {
 
     void Start() {
 
+        //Initializes variables
         speed = PlayerPrefs.GetFloat("calibrator");
         flag = true;//gambiarra
         defaultAngle = transform.eulerAngles;
-		//barrelDefaultAngle = null;// GetComponent<PlayerShooting>().GetBarrels()[0].transform.rotation;
         mainCamera = Camera.main;
         score = 0;
         alive = true;
         timeAlive = 0.0f;
         killsCount = 0;
 
+        //Adjusts life icon positions and size of upper bar according to screen size
         aux = (GetMaxHorizontalPosition() - GetMinHorizontalPosition()) / 12.0f;
 		lifeaBackground.transform.localScale = new Vector3(GetMaxHorizontalPosition() - GetMinHorizontalPosition(), aux * 0.5f, 1);
         positionVidas = new Vector3(aux/2.0f * 1.5f + GetMinHorizontalPosition(), -0.5f * aux + GetMaxVerticalPosition(), -1);
 
+        //Initializes life icons
         for (int i = 0; i < maxLifes; i++)
         {
             countLives[i] = (GameObject)Instantiate(life, positionVidas, Quaternion.identity);
@@ -58,9 +61,11 @@ public class PlayerControl : ShipScript {
             positionVidas = positionVidas + Vector3.right * aux/2.0f;
         }
 
+        //Limits hitpoints to maximum number of lives
         if (gameObject.GetComponent<PlayerControl>().hitPoints > maxLifes)
             gameObject.GetComponent<PlayerControl>().hitPoints = 10;
 
+        //Set life icons as active
         for (int i = 0; i < gameObject.GetComponent<PlayerControl>().hitPoints; i++)
             countLives[i].SetActive(true);
 
@@ -70,10 +75,10 @@ public class PlayerControl : ShipScript {
 	// Update is called once per frame
 	void Update () {
         //gambiarra apra funcioanr
-        if (flag) {//gambiarra
-			barrelDefaultAngle = GetComponent<PlayerShooting> ().GetBarrels () [0].transform.rotation;//gambiarra
-			flag = false;//gambiarra
-		}//gambiarra
+        if (flag) {
+			barrelDefaultAngle = GetComponent<PlayerShooting> ().GetBarrels () [0].transform.rotation;
+			flag = false;
+		}
 
         Vector2 dir;//dir.x between 0 and 1. Same for dir.y
         dir = InputControl.GetMoveDirection();
@@ -112,10 +117,10 @@ public class PlayerControl : ShipScript {
     }
 
 
-    
     void OnTriggerEnter(Collider col) {
         int damage;
         if (col.gameObject.tag == "EnemyBullet") {
+            //Colision with bullet: gets damage value, takes damage (losing lives) and destroys bullet
             damage = (int)col.gameObject.GetComponent<bulletScript>().GetDamage();
             while (damage > 0)
             {
@@ -127,13 +132,16 @@ public class PlayerControl : ShipScript {
             
             
         } else if (col.gameObject.tag == "Enemy") {
+            //Dies when crashing with enemy
             TakeDamage(hitPoints);
             RemoveLive();
         }else if (col.gameObject.tag == "UP") {
+            //Got an upgrade to attack
             GetComponent<PlayerShooting>().UpgradeBullet();
             Destroy(col.gameObject);
         }else if(col.gameObject.tag == "Missile")
         {
+            //Takes damage wih a missile as with a bullet
             damage = (int)col.gameObject.GetComponent<MissileBehaviour>().GetDamage();
             while (damage > 0)
             {
@@ -153,20 +161,19 @@ public class PlayerControl : ShipScript {
 
         base.DestroyShip(); //Do the DestroyShip stuff
 
-        //After destroing, I should add a piece of code to kill player:
+      
 
         alive = false;
 
 
         float matchScore = ScoreSystem.ReceiveMatchResults(timeAlive, killsCount);
-        print("THIS MATCH SCORE WAS: " + matchScore);
-
-        //Should call a coroutine to wait a few secs, and then shows pop-up menu to "Restart Game"
-        //For now, it just reinitializes...
+        //print("THIS MATCH SCORE WAS: " + matchScore);
+        
         SceneManager.LoadScene("Game Over");
 
     }
 
+    //Moves ship according to player input
     public override void MoveShip(Vector3 dir) {
         dir.x = Mathf.Clamp(dir.x * PlayerPrefs.GetFloat("calibrator"), -1, 1);
         dir.y = Mathf.Clamp(dir.y * PlayerPrefs.GetFloat("calibrator"), -1, 1);
@@ -186,6 +193,7 @@ public class PlayerControl : ShipScript {
 
     }
 
+    //Player gets a new life
     public void AddLive()
     {
         if (gameObject.GetComponent<PlayerControl>().hitPoints < 10)
@@ -198,11 +206,14 @@ public class PlayerControl : ShipScript {
             gameObject.GetComponent<PlayerControl>().hitPoints++;
         }
     }
+
+    //Player looses a life
     public void RemoveLive()
     {
         countLives[(int)gameObject.GetComponent<PlayerControl>().hitPoints].SetActive(false);
     }
 
+    //Functions for the player position limits on screen
     public float GetPlayerMinHorizontalPosition() {
         return SHIP_WIDTH / 2.0f - mainCamera.orthographicSize * Screen.width / Screen.height;
     }
@@ -215,9 +226,13 @@ public class PlayerControl : ShipScript {
 	public float GetPlayerMaxVerticalPosition() {
         return (2*maxVerticalPosition-1) * mainCamera.orthographicSize;
     }
+
+
     public bool isAlive() {
         return alive;
     }
+
+    //Increases kill count
     public void KillConfirmed() {
         killsCount++;
     }
