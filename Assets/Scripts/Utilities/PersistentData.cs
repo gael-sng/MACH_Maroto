@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Saves and loads data to disk: highscore, userRank
 public static class PersistentData {
 
     //Every information that will be stored should have it's set/get

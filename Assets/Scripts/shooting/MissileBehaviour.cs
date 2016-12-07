@@ -21,19 +21,7 @@ public class MissileBehaviour : Utilities {
 		rotationSpeed = maxSpeed / 3;
 	}
 	
-	// Update is called once per frame
-	/*void Update () {
-		//transform.Translate(Vector3.up * speed * Time.deltaTime);
-		if(target != null){
-			Vector3 targetDir = target.transform.position - transform.position;
-			float angle = RadianToDegree(Mathf.Atan(targetDir.y / targetDir.x));
-			if (targetDir.x < 0)
-				angle += 180;
-			//transform.rotation = Quaternion.RotateTowards (transform.rotation, Quaternion.Euler (0, 0, (angle * speed * Time.deltaTime) - 90.0f), 180);
-			transform.rotation = Quaternion.Euler (0, 0, (angle * speed * Time.deltaTime) - 90.0f);
 
-		}
-	}*/
 	void Update() {
 		//verificando se o missel esta fora da tela para explodilo
 		float x = gameObject.transform.position.x, y = gameObject.transform.position.y;

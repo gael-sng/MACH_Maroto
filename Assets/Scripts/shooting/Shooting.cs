@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Basic shooting script
 public abstract class Shooting : MonoBehaviour {
 
     protected float timer = 0.0f;

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Handles players attacks
 public class PlayerShooting : Shooting {
 
     public bulletType[] bulletTypes;

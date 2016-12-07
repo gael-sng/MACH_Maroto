@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Behaviour for a ship that launches missiles 
 public class missileLauncherBehaviour : Utilities {
 	public GameObject target;
 	public GameObject missilePrefab;

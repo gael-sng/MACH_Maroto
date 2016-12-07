@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Used for destroying enemies who go past the screen
 public class destroyZone : MonoBehaviour {
 
 	void OnTriggerEnter(Collider col){
