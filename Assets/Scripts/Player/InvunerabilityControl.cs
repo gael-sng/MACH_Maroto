@@ -44,10 +44,6 @@ public class InvunerabilityControl : MonoBehaviour {
     void Update () {
 	    if (GetComponent<PlayerControl>().isAlive()) {
             InvunerabilityCounter = Mathf.Clamp(InvunerabilityCounter + Time.deltaTime, 0, Invunerability_Charge_Time);
-           /* if (shield.activeSelf)
-            {
-                shield.transform.position = transform.position;
-            }*/
         }
 
         if (InvunerabilityCounter >= Invunerability_Charge_Time) {
@@ -63,10 +59,10 @@ public class InvunerabilityControl : MonoBehaviour {
     IEnumerator InvunerabilityCoroutine() {
         if (InvunerabilityCounter >= Invunerability_Charge_Time) {
             //If invunerability is charged, disables collider, plays animation, and resets invunerability counter
-            //isInvunerable = true;
+
             Collider collider = GetComponent<Collider>();
             collider.enabled = false;
-            shield.transform.position = transform.position;
+         
             shield.SetActive(true);
             
             InvunerabilityCounter = 0.0f;
@@ -74,7 +70,7 @@ public class InvunerabilityControl : MonoBehaviour {
             //After a few seconds, reset the colliders
             collider.enabled = true;
             shield.SetActive(false);
-            //isInvunerable = false;
+ 
         }
     }
 
