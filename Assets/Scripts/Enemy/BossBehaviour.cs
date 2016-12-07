@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BossBehaviour : MonoBehaviour {
+public class BossBehaviour : Utilities {
 	public GameObject player;
 
 	public float gatlingDelay;
@@ -45,6 +45,8 @@ public class BossBehaviour : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (gameObject.transform.position.y < GetMaxHorizontalPosition () - 0.3f)
+			myControl.verticalSpeed = 0.01f;
 		if (!isShooting) {
 			if (timer > 1 * wait)
 				ML1.enabled = true;
@@ -67,7 +69,7 @@ public class BossBehaviour : MonoBehaviour {
 			stop ();
 			Quaternion bulletRotation = Quaternion.Euler(Vector3.forward*MB.transform.eulerAngles.z);
 			saveMB = (GameObject)GameObject.Instantiate (MegaBullet, MB.position, bulletRotation);
-			saveMB.GetComponent<bulletScript> ().SetDamage(100);
+			saveMB.GetComponent<bulletScript> ().SetDamage(5);
 		}
 		if (timer > 6 * wait + 1) {
 			saveMB.GetComponent<bulletScript> ().SetSpeed (20);

@@ -15,6 +15,6 @@ public class displayKills : Utilities {
 	
 	// Update is called once per frame
 	void Update () {
-        this.GetComponent<TextMesh>().text ="Kills: "+Player.GetComponent<PlayerControl>().getKillsCount();
+		if(Player != null)this.GetComponent<TextMesh>().text ="Kills: "+Player.GetComponent<PlayerControl>().getKillsCount();
 	}
 }

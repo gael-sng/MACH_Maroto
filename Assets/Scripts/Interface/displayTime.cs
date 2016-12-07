@@ -17,6 +17,6 @@ public class displayTime : Utilities {
     // Update is called once per frame
     void Update()
     {
-        this.GetComponent<TextMesh>().text = "Time: " + Player.GetComponent<PlayerControl>().getTimeAlive().ToString("F0")+"s";
+		if(Player != null)this.GetComponent<TextMesh>().text = "Time: " + Player.GetComponent<PlayerControl>().getTimeAlive().ToString("F0")+"s";
     }
 }

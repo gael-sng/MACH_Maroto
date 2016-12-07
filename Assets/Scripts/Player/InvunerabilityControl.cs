@@ -12,7 +12,7 @@ public class InvunerabilityControl : MonoBehaviour {
     private float BAR_HEIGHT;
     private float InvunerabilityCounter;
 
-    public static readonly float Invunerability_Time = 1.0f;
+    public static readonly float Invunerability_Time = 2.0f;
     public static readonly float Invunerability_Charge_Time = 10.0f;
 
     // Use this for initialization
