@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+//Buttons for game over screen
 public class GameOverButtonScript : MonoBehaviour {
 
 	// Use this for initialization

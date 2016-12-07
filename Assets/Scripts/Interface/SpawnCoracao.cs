@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+//Spawns "hearts" - player's lives icons. Not in use anymore - incorporated in playercontrol
 public class SpawnCoracao : Utilities {
 	private int currentLives = 0;
 	public static readonly int maxLifes = 10;

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+//Options sliders script
 public class SliderOpcoes : MonoBehaviour {
 
     public Slider volumeSlider;
@@ -11,8 +12,8 @@ public class SliderOpcoes : MonoBehaviour {
     // Use this for initialization
     public void Start()
     {
-        volumeSlider.value = getMasterVolume();
-        calibratorSlider.value = getCalibrator();
+        volumeSlider.value = getMasterVolume(); //maximum volume
+        calibratorSlider.value = getCalibrator(); //sensibility coefficient
     }
 
     public void LoadMenu() {
@@ -26,11 +27,13 @@ public class SliderOpcoes : MonoBehaviour {
         AudioListener.volume = getMasterVolume();
     }
 
-    float getMasterVolume()
+    //Volume option
+    float getMasterVolume() 
     {
         return PlayerPrefs.GetFloat("master_volume");
     }
 
+    //Sensibility option
     float getCalibrator()
     {
         return PlayerPrefs.GetFloat("calibrator");
