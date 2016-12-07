@@ -36,7 +36,6 @@ public class PlayerControl : ShipScript {
 
     void Start() {
 
-        speed = PlayerPrefs.GetFloat("calibrator");
         flag = true;//gambiarra
         defaultAngle = transform.eulerAngles;
 		//barrelDefaultAngle = null;// GetComponent<PlayerShooting>().GetBarrels()[0].transform.rotation;
@@ -170,6 +169,7 @@ public class PlayerControl : ShipScript {
     public override void MoveShip(Vector3 dir) {
         dir.x = Mathf.Clamp(dir.x * PlayerPrefs.GetFloat("calibrator"), -1, 1);
         dir.y = Mathf.Clamp(dir.y * PlayerPrefs.GetFloat("calibrator"), -1, 1);
+        print("x:" + dir.x + " y:" + dir.y + " sens:" + PlayerPrefs.GetFloat("calibrator"));
         Vector3 newPosition = transform.position + new Vector3(dir.x, dir.y, 0) * speed * Time.deltaTime;
 
 		newPosition = new Vector3(Mathf.Clamp(newPosition.x, GetPlayerMinHorizontalPosition(), GetPlayerMaxHorizontalPosition()),
