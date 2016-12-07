@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
+//Script used for game over menu. Displays player statistics
 public class displayScoreDifficulty : MonoBehaviour {
 
     public Text score;

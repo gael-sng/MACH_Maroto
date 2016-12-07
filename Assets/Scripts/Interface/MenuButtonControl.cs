@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+//Script for main menu buttons
 public class MenuButtonControl : MonoBehaviour {
     
     public void Start()

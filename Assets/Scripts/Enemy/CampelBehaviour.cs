@@ -67,8 +67,8 @@ public class CampelBehaviour : ShipScript {
 		if (Random.value < upgradeDropChance && upgradePrefab != null) {
 			Instantiate(upgradePrefab, transform.position, Quaternion.identity);
 		}
-
-		base.DestroyShip(); //Do the DestroyShip stuff
+        GameObject.Find("player").GetComponent<PlayerControl>().KillConfirmed();
+        base.DestroyShip(); //Do the DestroyShip stuff
 	}
 
 	void OnTriggerEnter (Collider col) {

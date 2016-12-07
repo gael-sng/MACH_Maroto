@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Basic shooting script for enemies
 public class EnemyShooting : Shooting {
 
     [Header("Bullet damage")]
