@@ -73,18 +73,18 @@ public class EnemyControl: ShipScript {
 		if (Random.value < upgradeDropChance && upgradePrefab != null) {
             Instantiate(upgradePrefab, transform.position, Quaternion.identity);
         }
-
+        GameObject.Find("player").GetComponent<PlayerControl>().KillConfirmed();
         base.DestroyShip(); //Do the DestroyShip stuff
+       
     }
 
 	void OnTriggerEnter (Collider col) {
         if (col.gameObject.tag == "PlayerBullet") {
             TakeDamage(col.gameObject.GetComponent<bulletScript>().GetDamage());
             col.gameObject.SendMessage("Destroy");
-            GameObject.Find("player").GetComponent<PlayerControl>().KillConfirmed();
         } else if (col.gameObject.tag == "Player") {
             TakeDamage(hitPoints);
-            GameObject.Find("player").GetComponent<PlayerControl>().KillConfirmed();
+           
         }
     }
 
