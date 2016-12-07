@@ -13,11 +13,14 @@ public class PlayMusic : MonoBehaviour {
     [Header("Duration (in seconds) of fade")]
     public float fadeSpeed = 2f;
     private int playing = 0;
+    
 
     void Start()
     {
         source = GetComponent<AudioSource>();
         status = "playing";
+        maxVolume = ScoreSystem.getMasterVolume();
+        source.volume = maxVolume;
     }
 
     void Update()

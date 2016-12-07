@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class InvunerabilityControl : MonoBehaviour {
-    
+
+    private GameObject shield;
     private Color barBackgroundColor;
     private Color barLoadingColor;
     private Color barLoadedColor;
@@ -25,6 +26,8 @@ public class InvunerabilityControl : MonoBehaviour {
 
         backgroundStyle = SetStyleColor(barBackgroundColor);
         frontStyle = SetStyleColor(barLoadingColor);
+        shield = GameObject.Find("InvulShield");
+        shield.SetActive(false);
     }
 
     private GUIStyle SetStyleColor(Color newColor) {
@@ -41,6 +44,10 @@ public class InvunerabilityControl : MonoBehaviour {
     void Update () {
 	    if (GetComponent<PlayerControl>().isAlive()) {
             InvunerabilityCounter = Mathf.Clamp(InvunerabilityCounter + Time.deltaTime, 0, Invunerability_Charge_Time);
+           /* if (shield.activeSelf)
+            {
+                shield.transform.position = transform.position;
+            }*/
         }
 
         if (InvunerabilityCounter >= Invunerability_Charge_Time) {
@@ -59,10 +66,14 @@ public class InvunerabilityControl : MonoBehaviour {
             //isInvunerable = true;
             Collider collider = GetComponent<Collider>();
             collider.enabled = false;
+            shield.transform.position = transform.position;
+            shield.SetActive(true);
+            
             InvunerabilityCounter = 0.0f;
             yield return new WaitForSeconds(Invunerability_Time);
             //After a few seconds, reset the colliders
             collider.enabled = true;
+            shield.SetActive(false);
             //isInvunerable = false;
         }
     }
