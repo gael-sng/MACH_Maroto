@@ -6,10 +6,10 @@ public static class ScoreSystem {
 
     private static float point;
 
-    private static readonly float TIME_COEFICIENT = 1 / 60.0f;
-    private static readonly float KILLS_COEFICIENT = 1 / 20.0f;
-    private static readonly float EXPECTED_TIME = 60.0f; //60 secs
-    private static readonly int EXPECTED_KILLS = 20; //20 kills
+    private static readonly float TIME_COEFICIENT = 1 / 90.0f;
+    private static readonly float KILLS_COEFICIENT = 1 / 30.0f;
+    private static readonly float EXPECTED_TIME = 90.0f; //60 secs
+    private static readonly int EXPECTED_KILLS = 30; //20 kills
     private static readonly float DEFAULT_SCORE = EXPECTED_TIME * TIME_COEFICIENT + EXPECTED_KILLS * KILLS_COEFICIENT; //Default score means the player stayed alive for the expectedTime, and got the expectedKills
 
     private static readonly int MATCH_HISTORY_STORE_COUNT = 10;

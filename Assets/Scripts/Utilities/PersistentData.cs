@@ -17,7 +17,7 @@ public static class PersistentData {
         PlayerPrefs.SetFloat("userRankCoeficient", newCoeficient);
     }
     public static float GetUserRankCoeficient() {
-        return PlayerPrefs.GetFloat("userRankCoeficient");
+        return PlayerPrefs.GetFloat("userRankCoeficient", 1.0f);
     }
 
 }

@@ -23,14 +23,11 @@ public class spawnerBehavior : Utilities {
 	private float tarkelTimer;
 	private PlayerControl PC;
 
-	private int rank;
-	private int nextRank;
+	private float rank;
 
 	// Use this for initialization
 	void Start () {
-		rank = 0;
 		tarkelTimer = 0;
-		nextRank = 1;
 		bossCounter = 1;
 		tarkelFreq = 40;
 		PC = player.GetComponent<PlayerControl> ();
@@ -45,14 +42,13 @@ public class spawnerBehavior : Utilities {
 		if (player == null) return;
 
 		//rank de dificuldade sera calculado baseado que o nivel 1 o player tera matado cerca d 20 inimigos em 60 segundos
-		rank = (int)Mathf.Floor((PC.getTimeAlive () * PC.getKillsCount ())/(1200.0f));
-		if (rank == nextRank) {
-			nextRank++;
-			spawnDelay = 1 + (3.0f / rank);
-		}
-	
-		//verificandos se o boss ja acabou
-		if (boss != null)
+		rank = ScoreSystem.GetUserRankCoeficient()* (1.0f + PC.getTimeAlive () / 90.0f);
+        spawnDelay = 3.5f + (2.0f / rank);
+
+        print("Rank: " + rank + " Delay: " + spawnDelay + " - PlayerRankCoef: " + ScoreSystem.GetUserRankCoeficient());
+
+        //verificandos se o boss ja acabou
+        if (boss != null)
 			return;
 		else if (isBossTime) {
 			isBossTime = false;
@@ -69,7 +65,7 @@ public class spawnerBehavior : Utilities {
 			//Give to enemy a reference to the palyer
 			enemy.GetComponent<TarkelBehaviour>().player = player;
 			enemy.GetComponent<EnemyControl>().player = player.transform;
-			enemy.GetComponent<EnemyControl> ().hitPoints = 5 * (nextRank);
+			enemy.GetComponent<EnemyControl> ().hitPoints = Mathf.CeilToInt(rank * 5);
 
 			//put the enemy in a random position above the screen
 			enemy.GetComponent<Transform> ().position = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()), GetMaxVerticalPosition () + 0.2f, 0);;
@@ -84,7 +80,7 @@ public class spawnerBehavior : Utilities {
 			boss = Instantiate (Harbingel);
 			//Give to enemy a reference to the palyer
 			boss.GetComponent<EnemyControl> ().player = player.transform;
-			boss.GetComponent<EnemyControl> ().hitPoints = 14 * bossCounter;
+			boss.GetComponent<EnemyControl> ().hitPoints = Mathf.CeilToInt(10 * rank * bossCounter);
 			boss.GetComponent<BossBehaviour> ().player = player;
 			//put the enemy in a random position above the screen
 			boss.GetComponent<Transform> ().position = new Vector3(0, GetMaxVerticalPosition()+0.5f, 0);
@@ -104,10 +100,10 @@ public class spawnerBehavior : Utilities {
 
 					//Give to enemy a reference to the palyer
 					enemy.GetComponent<EnemyControl>().player = player.transform;
-					enemy.GetComponent<EnemyControl>().hitPoints = (rank + 1f)/2f;
-					enemy.GetComponent<EnemyControl> ().verticalSpeed = 1f + rank * 0.2f;
+					enemy.GetComponent<EnemyControl>().hitPoints = Mathf.CeilToInt(rank);
+					enemy.GetComponent<EnemyControl> ().verticalSpeed = 1.0f + rank * 0.2f;
 					enemy.GetComponent<EnemyControl> ().maxHorizontalSpeed = 1.5f + rank * 0.4f;
-					enemy.GetComponent<EnemyControl> ().movementDelay = 0.1f + (1/nextRank);
+					enemy.GetComponent<EnemyControl> ().movementDelay = 0.1f + (1.0f/rank);
 
 					//put the enemy in a random position above the screen
 					enemy.GetComponent<Transform> ().position = newPosition;
@@ -121,8 +117,9 @@ public class spawnerBehavior : Utilities {
 
 					//Give to enemy a reference to the palyer
 					enemy.GetComponent<CampelBehaviour> ().player = player.transform;
-					enemy.GetComponent<CampelBehaviour> ().hitPoints = Mathf.Ceil((rank+1)/2);
-					enemy.GetComponent<CampelBehaviour> ().movementDelay = 4f + (6f / nextRank);
+                    enemy.GetComponent<CampelBehaviour>().hitPoints = Mathf.CeilToInt(rank );
+                    enemy.GetComponent<CampelBehaviour> ().movementDelay = 4.0f + (6.0f / rank);
+
 					//put the enemy in a random position above the screen
 					enemy.GetComponent<Transform> ().position = newPosition;
 				}
