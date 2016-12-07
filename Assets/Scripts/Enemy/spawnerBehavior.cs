@@ -50,9 +50,7 @@ public class spawnerBehavior : Utilities {
 			nextRank++;
 			spawnDelay = 1 + (3.0f / rank);
 		}
-		ClearConsole ();
-		print ("rank =" + rank);
-
+	
 		//verificandos se o boss ja acabou
 		if (boss != null)
 			return;
