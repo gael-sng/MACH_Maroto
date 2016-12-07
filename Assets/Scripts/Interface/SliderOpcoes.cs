@@ -23,6 +23,7 @@ public class SliderOpcoes : MonoBehaviour {
 	void Update () {
         PlayerPrefs.SetFloat("master_volume", volumeSlider.value);
         PlayerPrefs.SetFloat("calibrator", calibratorSlider.value);
+        AudioListener.volume = getMasterVolume();
     }
 
     float getMasterVolume()
