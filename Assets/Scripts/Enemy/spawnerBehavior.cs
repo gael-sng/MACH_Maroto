@@ -19,16 +19,20 @@ public class spawnerBehavior : Utilities {
 	private GameObject boss;
 	private bool isBossTime;
 	private int bossCounter;
+	private float tarkelTimer;
 	private int tarkelCounter;
 	private PlayerControl PC;
 
 	private int rank;
+	private int nextRank;
 
 	// Use this for initialization
 	void Start () {
 		rank = 0;
+		nextRank = 1;
 		bossCounter = 1;
 		tarkelCounter = 1;
+		tarkelTimer = 0;
 		PC = player.GetComponent<PlayerControl> ();
 		isBossTime = false;
 		boss = null;
@@ -42,7 +46,28 @@ public class spawnerBehavior : Utilities {
 
 		//rank de dificuldade sera calculado baseado que o nivel 1 o player tera matado cerca d 20 inimigos em 60 segundos
 		rank = (int)Mathf.Floor((PC.getTimeAlive () * PC.getKillsCount ())/(1200.0f));
+		if (rank == nextRank) {
+			nextRank++;
+			tarkelTimer = 0;
+			tarkelCounter = 0;
+		}
 		print ("rank =" + rank);
+
+		//isso far ao tarkel ser spwanado no primeiro nivel 1 vez, segundo nivel 2 veses assim por diante
+		tarkelTimer += Time.deltaTime;
+		if (Tarkel && tarkelTimer >= tarkelCounter*(31.0f/(nextRank)) ) {
+			tarkelCounter++;
+			GameObject enemy;
+			enemy = Instantiate (Tarkel);
+
+			//Give to enemy a reference to the palyer
+			enemy.GetComponent<TarkelBehaviour>().player = player;
+			enemy.GetComponent<EnemyControl>().player = player.transform;
+			enemy.GetComponent<EnemyControl> ().hitPoints = 4 * (nextRank);
+
+			//put the enemy in a random position above the screen
+			enemy.GetComponent<Transform> ().position = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()), GetMaxVerticalPosition () + 0.5f, 0);;
+		}
 
 		//verificandos se o boss ja acabou
 		if (boss != null)
@@ -64,23 +89,8 @@ public class spawnerBehavior : Utilities {
 			boss.GetComponent<EnemyControl> ().hitPoints = 12 * bossCounter;
 			boss.GetComponent<BossBehaviour> ().player = player;
 			//put the enemy in a random position above the screen
-			boss.GetComponent<Transform> ().position = new Vector3();
+			boss.GetComponent<Transform> ().position = new Vector3(0, GetMaxVerticalPosition()+0.5f, 0);
 			isBossTime = true;
-		}
-
-
-		if (Tarkel && PC.getTimeAlive() >= tarkelCounter * (29.0f / (rank + 1))) {
-			tarkelCounter++;
-			GameObject enemy;
-			enemy = Instantiate (Tarkel);
-
-			//Give to enemy a reference to the palyer
-			enemy.GetComponent<TarkelBehaviour>().player = player;
-			enemy.GetComponent<EnemyControl>().player = player.transform;
-			enemy.GetComponent<EnemyControl> ().hitPoints = 4 * (rank + 1);
-
-			//put the enemy in a random position above the screen
-			enemy.GetComponent<Transform> ().position = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()), GetMaxVerticalPosition () + 0.5f, 0);;
 		}
 
 		Vector3 newPosition = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()), GetMaxVerticalPosition () + 0.5f, 0);
