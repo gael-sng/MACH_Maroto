@@ -42,8 +42,8 @@ public class spawnerBehavior : Utilities {
 		if (player == null) return;
 
 		//rank de dificuldade sera calculado baseado que o nivel 1 o player tera matado cerca d 20 inimigos em 60 segundos
-		rank = ScoreSystem.GetUserRankCoeficient()* (1.0f + PC.getTimeAlive () / 90.0f);
-        spawnDelay = 3.5f + (2.0f / rank);
+		rank = (0.3f + 0.7f*ScoreSystem.GetUserRankCoeficient())* (1.0f + PC.getTimeAlive () / 75.0f);
+        spawnDelay = Mathf.Clamp(7.0f - 1.5f*rank, 0.15f, 5.0f);
 
         print("Rank: " + rank + " Delay: " + spawnDelay + " - PlayerRankCoef: " + ScoreSystem.GetUserRankCoeficient());
 
@@ -105,8 +105,10 @@ public class spawnerBehavior : Utilities {
 					enemy.GetComponent<EnemyControl> ().maxHorizontalSpeed = 1.5f + rank * 0.4f;
 					enemy.GetComponent<EnemyControl> ().movementDelay = 0.1f + (1.0f/rank);
 
-					//put the enemy in a random position above the screen
-					enemy.GetComponent<Transform> ().position = newPosition;
+                    enemy.GetComponent<EnemyShooting>().ShootingInterval = 0.4f + (1.0f / rank) * 0.45f;
+
+                    //put the enemy in a random position above the screen
+                    enemy.GetComponent<Transform> ().position = newPosition;
 				}
 				break;
 
@@ -116,9 +118,11 @@ public class spawnerBehavior : Utilities {
 					enemy = Instantiate (Campel);
 
 					//Give to enemy a reference to the palyer
-					enemy.GetComponent<CampelBehaviour> ().player = player.transform;
+					enemy.GetComponent<CampelBehaviour>().player = player.transform;
                     enemy.GetComponent<CampelBehaviour>().hitPoints = Mathf.CeilToInt(rank );
-                    enemy.GetComponent<CampelBehaviour> ().movementDelay = 4.0f + (6.0f / rank);
+                    enemy.GetComponent<CampelBehaviour>().movementDelay = 4.0f + (6.0f / rank);
+
+                    enemy.GetComponent<EnemyShooting>().ShootingInterval = 0.5f + (1.0f / rank)*0.5f;
 
 					//put the enemy in a random position above the screen
 					enemy.GetComponent<Transform> ().position = newPosition;

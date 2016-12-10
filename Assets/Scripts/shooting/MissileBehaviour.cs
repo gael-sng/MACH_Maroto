@@ -15,7 +15,7 @@ public class MissileBehaviour : Utilities {
 	void Start () {
 		speed = 0;
 		if (maxSpeed == 0)
-			maxSpeed = 3;
+			maxSpeed = 3.5f;
 		if (acceleration == 0)
 			acceleration = maxSpeed;
 		rotationSpeed = maxSpeed / 3;

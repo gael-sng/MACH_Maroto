@@ -40,8 +40,8 @@ public class EnemyControl: ShipScript {
     void Update () {
 		if (timer >= movementDelay && player != null) {
 			timer = 0;
-			if (modulo (player.position.x - enemy.position.x) < 0.3) {
-				if (modulo (horizontalSpeed) > 0.1)horizontalSpeed = 0;
+			if (Mathf.Abs (player.position.x - enemy.position.x) < 0.3) {
+				if (Mathf.Abs (horizontalSpeed) > 0.1)horizontalSpeed = 0;
 				else if(horizontalSpeed < 0)horizontalSpeed += aceleration * Time.deltaTime*2;			
 				else if (horizontalSpeed > 0)horizontalSpeed -= aceleration * Time.deltaTime*2;
 			} else if (player.position.x > enemy.position.x)
@@ -84,13 +84,6 @@ public class EnemyControl: ShipScript {
             col.gameObject.SendMessage("Destroy");
         } else if (col.gameObject.tag == "Player") {
             TakeDamage(hitPoints);
-           
         }
     }
-
-	private float modulo(float n){
-		if (n < 0)
-			return - n;
-		return n;
-	}
 }

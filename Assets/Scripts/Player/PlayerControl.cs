@@ -184,8 +184,8 @@ public class PlayerControl : ShipScript {
 
         if (GetComponent<Collider>().enabled)
         {
+            Vector3 velocity = Vector3.zero;
             transform.eulerAngles = defaultAngle + new Vector3(-dir.y * xFlipCoef, -dir.x * yFlipCoef, 0.0f);
-
         }
             
 
