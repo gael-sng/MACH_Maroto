@@ -8,7 +8,7 @@ public class displayScoreDifficulty : MonoBehaviour {
     public Text score;
     public Text highScore;
     public Text difficulty;
-    public Text highDifficulty;
+    public Text newDifficuty;
     private float aux;
 
     // Use this for initialization
@@ -16,9 +16,11 @@ public class displayScoreDifficulty : MonoBehaviour {
 
         ScoreSystem.MatchDetails lastMatch = ScoreSystem.GetLastMatchDetails();
 
-        score.text = "Score: " + lastMatch.score;
-        highScore.text = "High Score: " + ScoreSystem.GetHighscore();
-        difficulty.text = "Difficulty: " + string.Format("{0:0.00}", lastMatch.battleCoeficient);
+        score.text += lastMatch.score;
+        highScore.text += ScoreSystem.GetHighscore();
+        difficulty.text += lastMatch.battleCoeficient.ToString("F2");
+        float difference = ScoreSystem.GetUserRankCoeficient() - lastMatch.battleCoeficient;
+        newDifficuty.text += ScoreSystem.GetUserRankCoeficient().ToString("F2");
     }
 	
 	// Update is called once per frame

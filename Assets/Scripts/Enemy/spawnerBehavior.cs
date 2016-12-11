@@ -43,7 +43,7 @@ public class spawnerBehavior : Utilities {
 
 		//rank de dificuldade sera calculado baseado que o nivel 1 o player tera matado cerca d 20 inimigos em 60 segundos
 		rank = (0.3f + 0.7f*ScoreSystem.GetUserRankCoeficient())* (1.0f + PC.getTimeAlive () / 75.0f);
-        spawnDelay = Mathf.Clamp(5.0f - 1.5f*rank, 1.2f, 5.0f);
+        spawnDelay = Mathf.Clamp(5.0f - 1.2f*rank, 2.0f, 5.0f);
 
         print("Rank: " + rank + " Delay: " + spawnDelay + " - PlayerRankCoef: " + ScoreSystem.GetUserRankCoeficient());
 
@@ -65,7 +65,7 @@ public class spawnerBehavior : Utilities {
 			//Give to enemy a reference to the palyer
 			enemy.GetComponent<TarkelBehaviour>().player = player;
 			enemy.GetComponent<EnemyControl>().player = player.transform;
-			enemy.GetComponent<EnemyControl> ().hitPoints = Mathf.CeilToInt(Mathf.Pow(rank, 1.5f) * 4);
+			enemy.GetComponent<EnemyControl> ().hitPoints = Mathf.FloorToInt(Mathf.Pow(rank, 1.5f) * 3);
 
 			//put the enemy in a random position above the screen
 			enemy.GetComponent<Transform> ().position = new Vector3 (Random.Range (GetMinHorizontalPosition (), GetMaxHorizontalPosition()), GetMaxVerticalPosition () + 0.2f, 0);;
@@ -80,7 +80,7 @@ public class spawnerBehavior : Utilities {
 			boss = Instantiate (Harbingel);
 			//Give to enemy a reference to the palyer
 			boss.GetComponent<EnemyControl> ().player = player.transform;
-			boss.GetComponent<EnemyControl> ().hitPoints = Mathf.CeilToInt(7 * Mathf.Pow(rank, 1.5f) * bossCounter);
+			boss.GetComponent<EnemyControl> ().hitPoints = Mathf.FloorToInt(6 * Mathf.Pow(rank, 1.5f) * bossCounter);
 			boss.GetComponent<BossBehaviour> ().player = player;
 			//put the enemy in a random position above the screen
 			boss.GetComponent<Transform> ().position = new Vector3(0, GetMaxVerticalPosition()+0.5f, 0);
@@ -136,6 +136,11 @@ public class spawnerBehavior : Utilities {
 
 			}
 		}
-		timer += Time.deltaTime;
+
+        if (PC.getTimeAlive() >= (60.0f * bossCounter) - 4.0f) {
+            timer = 0.0f;
+        } else {
+            timer += Time.deltaTime;
+        }
 	}
 }
