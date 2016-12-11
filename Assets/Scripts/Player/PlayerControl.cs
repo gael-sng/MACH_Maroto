@@ -211,7 +211,16 @@ public class PlayerControl : ShipScript {
     public void RemoveLive()
     {
         countLives[(int)gameObject.GetComponent<PlayerControl>().hitPoints].SetActive(false);
+        StartCoroutine("TakeHitCoroutine");
     }
+   
+    IEnumerator TakeHitCoroutine() {
+        GameObject.Find("Directional light").GetComponent<Light>().intensity = 0.1f;
+        yield return new WaitForSeconds(0.07f);
+        GameObject.Find("Directional light").GetComponent<Light>().intensity = 1.0f;
+    }
+
+
 
     //Functions for the player position limits on screen
     public float GetPlayerMinHorizontalPosition() {

@@ -14,10 +14,12 @@ public class displayScoreDifficulty : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        score.text = "Score: " + string.Format("{0:0.00}", ScoreSystem.getPoint());
-        highScore.text = "High Score: " + string.Format("{0:0.00}", ScoreSystem.GetHighscore());
-        difficulty.text = "Difficulty: " + string.Format("{0:0.00}", ScoreSystem.GetUserRankCoeficient());
-	}
+        ScoreSystem.MatchDetails lastMatch = ScoreSystem.GetLastMatchDetails();
+
+        score.text = "Score: " + lastMatch.score;
+        highScore.text = "High Score: " + ScoreSystem.GetHighscore();
+        difficulty.text = "Difficulty: " + string.Format("{0:0.00}", lastMatch.battleCoeficient);
+    }
 	
 	// Update is called once per frame
 	void Update () {

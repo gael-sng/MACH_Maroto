@@ -30,13 +30,13 @@ public class SliderOpcoes : MonoBehaviour {
     //Volume option
     float getMasterVolume() 
     {
-        return PlayerPrefs.GetFloat("master_volume");
+        return PlayerPrefs.GetFloat("master_volume", volumeSlider.maxValue);
     }
 
     //Sensibility option
     float getCalibrator()
     {
-        return PlayerPrefs.GetFloat("calibrator");
+        return PlayerPrefs.GetFloat("calibrator", calibratorSlider.maxValue/2.0f);
     }
 
 }

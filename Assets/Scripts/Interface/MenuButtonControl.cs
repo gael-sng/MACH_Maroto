@@ -8,6 +8,7 @@ public class MenuButtonControl : MonoBehaviour {
     public void Start()
     {
         AudioListener.volume = PlayerPrefs.GetFloat("master_volume");
+        Screen.sleepTimeout = SleepTimeout.NeverSleep;
     }
 
     public void LoadOptions() {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public static class ScoreSystem {
 
-    private static float point;
+    private static MatchDetails lastMatchDetails;
 
     private static readonly float TIME_COEFICIENT = 1 / 90.0f;
     private static readonly float KILLS_COEFICIENT = 1 / 30.0f;
@@ -18,8 +18,17 @@ public static class ScoreSystem {
     private static readonly float MIN_RANK_COEFICIENT = 0.10f;
     private static readonly float MAX_RANK_COEFICIENT = Mathf.Infinity;
 
+    public struct MatchDetails {
+        public float timeAlive, battleCoeficient;
+        public int score, kills;
+    }
+
+    public static MatchDetails GetLastMatchDetails() {
+        return lastMatchDetails;
+    }
+
     //Calculates the match score due to the userRankCoeficient, and update it, as well as the match history
-    private static float CalculateMatchScore(float time, int kills) {
+    private static int CalculateMatchScore(float time, int kills) {
         float userRankCoeficient = GetUserRankCoeficient(); //Loads the userRankCoeficient (Gets 1.0 if new player)
         Queue<float> matchHistory = LoadMatchHistory(); //Loads the match history
 
@@ -47,10 +56,16 @@ public static class ScoreSystem {
         }
 
         //Calculates the score due to the userRankCoeficient
-        float finalMatchScore = rawMatchScore * userRankCoeficient;
+        int finalMatchScore = Mathf.RoundToInt(100*rawMatchScore * userRankCoeficient);
 
         //Adds the match registry to the match history
         AddMatch(finalMatchScore, matchHistory);
+
+        lastMatchDetails = new MatchDetails();
+        lastMatchDetails.kills = kills;
+        lastMatchDetails.timeAlive = time;
+        lastMatchDetails.battleCoeficient = userRankCoeficient;
+        lastMatchDetails.score = finalMatchScore;
 
         //Saves the new userRankCoeficient, which value must be between MIN_RANK_COEFICIENT and MAX_RANK_COEFICIENT
         PersistentData.SetUserRankCoeficient(Mathf.Clamp(userRankCoeficient + increment, MIN_RANK_COEFICIENT, MAX_RANK_COEFICIENT));
@@ -59,7 +74,7 @@ public static class ScoreSystem {
     }
 
     //Adds a new match registry to the matchHistory list
-    private static void AddMatch(float newMatchScore, Queue<float> matchHistory) {
+    private static void AddMatch(int newMatchScore, Queue<float> matchHistory) {
 
         //Adds this match results to the matchHistory
         if (matchHistory.Count >= MATCH_HISTORY_STORE_COUNT) {
@@ -112,16 +127,9 @@ public static class ScoreSystem {
 
         return newQueue;
     }
-
-    public static float getPoint()
-    {
-        return point;
-    }
-
     //Receives a new match result
-    public static float ReceiveMatchResults(float time, int kills) {
-        point = CalculateMatchScore(time, kills);
-        return point;
+    public static int ReceiveMatchResults(float time, int kills) {
+        return CalculateMatchScore(time, kills);
     }
 
     //Returns the user Rank Coeficient
