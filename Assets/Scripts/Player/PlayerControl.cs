@@ -174,9 +174,9 @@ public class PlayerControl : ShipScript {
 
     //Moves ship according to player input
     public override void MoveShip(Vector3 dir) {
-        dir.x = Mathf.Clamp(dir.x * PlayerPrefs.GetFloat("calibrator"), -1, 1);
-        dir.y = Mathf.Clamp(dir.y * PlayerPrefs.GetFloat("calibrator"), -1, 1);
-        print("x:" + dir.x + " y:" + dir.y + " sens:" + PlayerPrefs.GetFloat("calibrator"));
+        dir *= PlayerPrefs.GetFloat("calibrator", 3.0f)/2.0f;
+        if (dir.sqrMagnitude > 1.0f) dir.Normalize();
+
         Vector3 newPosition = transform.position + new Vector3(dir.x, dir.y, 0) * speed * Time.deltaTime;
 
 		newPosition = new Vector3(Mathf.Clamp(newPosition.x, GetPlayerMinHorizontalPosition(), GetPlayerMaxHorizontalPosition()),
@@ -244,6 +244,7 @@ public class PlayerControl : ShipScript {
     //Increases kill count
     public void KillConfirmed() {
         killsCount++;
+        GetComponent<InvunerabilityControl>().Killed();
     }
 
     public int getKillsCount()

@@ -13,8 +13,8 @@ public class ShipScript : Utilities {
 	[Header("Explosion prefab")]
 	public GameObject explosion;
 
-    public static readonly float yFlipCoef = 30.0f;
-    public static readonly float xFlipCoef = 10.0f;
+    public static readonly float yFlipCoef = 45.0f;
+    public static readonly float xFlipCoef = 15.0f;
 
 
     protected void TakeDamage(float damage) {

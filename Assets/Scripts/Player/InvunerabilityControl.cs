@@ -15,7 +15,7 @@ public class InvunerabilityControl : MonoBehaviour {
     private float InvunerabilityCounter; //Time counter for recharging the shield
 
     public static readonly float Invunerability_Time = 2.0f; //Invulnerability time
-    public static readonly float Invunerability_Charge_Time = 10.0f; //Recharge time
+    public static readonly float Invunerability_Charge_Time = 8.0f; //Recharge time
 
     
     void Start () {
@@ -61,6 +61,10 @@ public class InvunerabilityControl : MonoBehaviour {
         } else {
             frontStyle = SetStyleColor(barLoadingColor);
         }
+    }
+
+    public void Killed() {
+        InvunerabilityCounter = Mathf.Clamp(InvunerabilityCounter + 1.5f, 0, Invunerability_Charge_Time);
     }
 
     IEnumerator InvunerabilityCoroutine() {

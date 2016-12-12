@@ -36,7 +36,7 @@ public class SliderOpcoes : MonoBehaviour {
     //Sensibility option
     float getCalibrator()
     {
-        return PlayerPrefs.GetFloat("calibrator", calibratorSlider.maxValue/2.0f);
+        return PlayerPrefs.GetFloat("calibrator", 3.0f);
     }
 
 }

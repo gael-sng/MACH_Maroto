@@ -13,7 +13,8 @@ public static class InputControl {
         return Input.GetKeyDown(KeyCode.Space);
     }
 #elif UNITY_ANDROID
-    
+
+    static Vector3 accelerometerInput;
     public static void calibrateAccelerometer() {
         Vector3 wantedDeadZone = Input.acceleration;
         Quaternion rotateQuaternion = Quaternion.FromToRotation(new Vector3(0f, 0f, -1f), wantedDeadZone);
@@ -24,7 +25,12 @@ public static class InputControl {
     }
 
     public static Vector3 GetMoveDirection() {
-        return calibrationMatrix.MultiplyVector(Input.acceleration);
+        float interpolationTime = 0.07f;
+        
+        accelerometerInput = Vector3.Lerp(accelerometerInput, calibrationMatrix.MultiplyVector(Input.acceleration), Time.deltaTime/interpolationTime);
+        if (accelerometerInput.sqrMagnitude > 1.0f) accelerometerInput.Normalize();
+
+        return accelerometerInput;
     }
     public static bool GetInvunerabilityUsed() {
         return Input.touchCount >= 1;
